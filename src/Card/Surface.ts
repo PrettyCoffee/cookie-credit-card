@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components"
 
 export const Surface = styled.div`
-  ${({ theme: { color } }) => css`
+  ${({ theme: { color, space } }) => css`
     height: 300px;
     width: 500px;
-    margin: 3rem;
+    margin: ${space.largest};
 
     background-color: ${color.bg.alt};
-    border: 2px solid ${color.stroke};
-    border-radius: 1rem;
+    border: ${space.smallest} solid ${color.stroke};
+    border-radius: ${space.medium};
   `}
 `
