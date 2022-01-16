@@ -5,8 +5,11 @@
   "author": "PrettyCoffee",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/index.html --open --port 3000",
-    "build": "parcel build src/index.html --dist-dir build",
+    "start": "npm run clean && npm run serve",
+    "build": "npm run clean && npm run compile",
+    "serve": "parcel src/index.html --open --port 3000",
+    "compile": "parcel build src/index.html",
+    "clean": "rimraf ./dist/* && rimraf ./.parcel-cache/*",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -33,6 +36,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "parcel": "^2.1.1",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.5.4"
   },
   "alias": {
