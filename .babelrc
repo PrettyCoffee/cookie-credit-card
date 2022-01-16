@@ -6,6 +6,11 @@
 			"pragmaFrag": "Fragment",
 			"throwIfNamespace": false,
 			"useBuiltIns": true
-		}]
+		}],
+		["auto-import", {
+      "declarations": [
+        { "members": ["h", "Fragment"], "path": "preact" }
+      ]
+    }]
 	]
 }
