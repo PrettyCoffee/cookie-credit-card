@@ -8,4 +8,4 @@ const H1 = styled.h1`
 
 const App = () => <H1>Hello from Preact and Typescript!</H1>
 
-render(<App />, document.getElementById("root"))
+render(<App />, document.getElementById("root") as Element)
