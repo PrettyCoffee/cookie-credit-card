@@ -1,15 +1,10 @@
-import { ComponentChildren } from "preact"
-
 import { ThemeProvider } from "styled-components"
 
+import { PropsWithChildren } from "../../components/fragments/PropsWithChildren"
 import { GlobalStyles } from "./GlobalStyles"
 import { theme } from "./theme"
 
-type ThemeProps = {
-  children: ComponentChildren
-}
-
-const Theme = ({ children }: ThemeProps) => (
+const Theme = ({ children }: PropsWithChildren) => (
   <ThemeProvider theme={theme}>
     <GlobalStyles />
     {children}

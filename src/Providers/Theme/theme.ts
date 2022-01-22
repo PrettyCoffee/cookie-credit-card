@@ -1,13 +1,15 @@
 import { DefaultTheme } from "styled-components"
 
+const space = {
+  smallest: "0.125rem",
+  small: "0.5rem",
+  medium: "1rem",
+  large: "1.5rem",
+  largest: "3rem",
+}
+
 export const theme: DefaultTheme = {
-  space: {
-    smallest: "0.125rem",
-    small: "0.5rem",
-    medium: "1rem",
-    large: "1.5rem",
-    largest: "3rem",
-  },
+  space,
   color: {
     bg: {
       base: "#fef6e4",

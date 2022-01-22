@@ -1,11 +1,8 @@
-import Card from "./Card"
-import Layout from "./Layout"
-import Theme from "./Theme"
+import Page from "./Page"
+import Providers from "./Providers"
 
 export const App = () => (
-  <Theme>
-    <Layout>
-      <Card />
-    </Layout>
-  </Theme>
+  <Providers>
+    <Page />
+  </Providers>
 )

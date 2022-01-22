@@ -25,7 +25,7 @@ const importOrderRules = {
   groups: ["builtin", "external", "internal"],
   pathGroups: [
     {
-      pattern: "preact",
+      pattern: "*react",
       group: "external",
       position: "before",
     },

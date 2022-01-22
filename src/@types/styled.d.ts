@@ -1,6 +1,6 @@
 import "styled-components"
 
-export interface Spacing {
+interface Spacing {
   smallest: string
   small: string
   medium: string
