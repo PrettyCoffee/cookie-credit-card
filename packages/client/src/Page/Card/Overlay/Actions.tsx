@@ -1,8 +1,8 @@
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 import styled, { css } from "styled-components"
 
-import { useAuth } from "../../../Providers/Auth"
 import IconButton from "../../../components/IconButton"
+import { useAuth } from "../../../Providers/Auth"
 
 const Wrapper = styled.div`
   ${({ theme: { space } }) => css`
