@@ -4,11 +4,12 @@
   "author": "PrettyCoffee",
   "license": "MIT",
   "scripts": {
-    "start": "npm run clean && npm run serve",
-    "build": "npm run clean && npm run compile",
+    "start": "run-s clean serve",
+    "build": "run-s clean lint ts-check compile",
     "serve": "parcel src/index.html --open --port 3000 --cache-dir ./.parcel-cache",
     "compile": "parcel build src/index.html --no-source-maps",
     "clean": "rimraf ./dist && rimraf ./.parcel-cache",
+    "ts-check": "tsc || echo 'ERROR: Typescript check failed'",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix"
   },
