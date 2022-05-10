@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.17.3",
+    "@ccc/theming": "*",
     "@radix-ui/react-icons": "^1.1.1",
     "emotion-rgba": "^0.0.9",
     "preact": "^10.7.2",

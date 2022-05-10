@@ -1,11 +1,12 @@
+import { ThemeProvider } from "@ccc/theming"
+
 import { PropsWithChildren } from "../components/fragments/PropsWithChildren"
 import Auth from "./Auth"
-import Theme from "./Theme"
 
 const Providers = ({ children }: PropsWithChildren) => (
-  <Theme>
+  <ThemeProvider>
     <Auth>{children}</Auth>
-  </Theme>
+  </ThemeProvider>
 )
 
 export default Providers

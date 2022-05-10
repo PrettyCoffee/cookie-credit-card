@@ -1,0 +1,27 @@
+{
+  "name": "@ccc/theming",
+  "version": "0.1.0",
+  "author": "PrettyCoffee",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "scripts": {
+    "ts-check": "tsc || echo 'ERROR: Typescript check failed'",
+    "lint": "run-lint ./src --config preact",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "peerDependencies": {
+    "preact": "^10.7.2",
+    "styled-components": "^5.3.5"
+  },
+  "dependencies": {
+    "emotion-rgba": "^0.0.9"
+  },
+  "devDependencies": {
+    "@ccc/eslint-config": "*",
+    "@types/styled-components": "^5.1.25"
+  },
+  "alias": {
+    "react": "preact/compat",
+    "react-dom": "preact/compat"
+  }
+}
