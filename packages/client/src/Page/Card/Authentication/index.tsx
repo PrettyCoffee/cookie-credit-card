@@ -1,6 +1,5 @@
-import { useState } from "react"
-
 import { CaretDownIcon } from "@radix-ui/react-icons"
+import { useState } from "react"
 import styled, { css } from "styled-components"
 
 import { CardSurface } from "../CardSurface"
