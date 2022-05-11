@@ -10,6 +10,7 @@
     "lint:fix": "npm run lint:fix --workspaces"
   },
   "workspaces": [
+    "apps/*",
     "packages/*",
     "tools/*"
   ],
