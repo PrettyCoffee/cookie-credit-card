@@ -2,7 +2,10 @@ import { NextFunction, Request, Response } from "express"
 
 export type ErrorId =
   | "BAD_REQUEST"
+  | "NAME_ALREADY_EXISTS"
+  | "USER_NOT_FOUND"
   | "UNAUTHORIZED"
+  | "PASSWORD_NOT_VALID"
   | "UNEXPECTED"
 
 interface Error<Id extends ErrorId> {
@@ -20,6 +23,21 @@ export const errors: Errors = {
     id: "BAD_REQUEST",
     code: 400,
     message: "The request could not be processed due to an error in the data.",
+  },
+  NAME_ALREADY_EXISTS: {
+    id: "NAME_ALREADY_EXISTS",
+    code: 400,
+    message: "The name is already taken.",
+  },
+  PASSWORD_NOT_VALID: {
+    id: "PASSWORD_NOT_VALID",
+    code: 400,
+    message: "The password does not fit the requirements.",
+  },
+  USER_NOT_FOUND: {
+    id: "USER_NOT_FOUND",
+    code: 404,
+    message: "The user could not be found.",
   },
   UNAUTHORIZED: {
     id: "UNAUTHORIZED",
