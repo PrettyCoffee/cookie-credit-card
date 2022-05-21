@@ -1,16 +1,27 @@
 import express from "express"
+
+import { CookieDatabase } from "./database"
+import Routes from "./routes"
 import { errorHandler } from "./utils/errors"
+import { protectedRoute } from "./utils/protectedRoute"
+import path from "path"
+
+const databasePath = path.resolve("../../data")
+
+const DB = new CookieDatabase(databasePath)
 
 const app = express()
 
-const PORT = 8000
-
 app.use(express.json())
 
-app.get("/test", (_req, _res) => {
-  _res.send("TypeScript With Express")
+Routes.forEach(({ method, path, protect, handler }) => {
+  if (protect) {
+    app[method](path, protectedRoute, (req, res) => handler(req, res, DB))
+  } else {
+    app[method](path, (req, res) => handler(req, res, DB))
+  }
 })
 
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log("server is running at", PORT))
+app.listen(8000, () => console.log("server is running at 8000"))
