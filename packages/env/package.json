@@ -1,0 +1,16 @@
+{
+  "name": "@ccc/env",
+  "version": "0.1.0",
+  "author": "PrettyCoffee",
+  "license": "MIT",
+  "main": "./index.ts",
+  "scripts": {
+    "compile": "tsc",
+    "lint": "run-lint ./index.ts",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "@ccc/eslint-config": "*"
+  }
+}
