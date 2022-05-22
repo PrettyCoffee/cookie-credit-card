@@ -1,3 +1,4 @@
+import {Icon} from "react-feather"
 import styled, { css } from "styled-components"
 
 const Button = styled.button`
@@ -75,8 +76,6 @@ const RightLabel = styled(Label)`
     }
   }
 `
-
-type Icon = React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>
 
 type IconButtonProps = {
   icon: Icon

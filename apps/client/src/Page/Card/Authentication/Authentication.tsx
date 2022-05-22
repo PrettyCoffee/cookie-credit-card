@@ -1,4 +1,4 @@
-import { CaretDownIcon } from "@radix-ui/react-icons"
+import { ChevronDown } from "react-feather"
 import { useState } from "react"
 import styled, { css } from "styled-components"
 
@@ -23,7 +23,7 @@ const Surface = styled(CardSurface)<{ focused: boolean }>`
   `}
 `
 
-const Caret = styled(CaretDownIcon)`
+const Caret = styled(ChevronDown)`
   ${({ theme: { color } }) => css`
     position: absolute;
     bottom: 0;

@@ -1,4 +1,4 @@
-import { LockClosedIcon, LockOpen2Icon } from "@radix-ui/react-icons"
+import { Lock, Unlock } from "react-feather"
 import styled, { css } from "styled-components"
 
 import { useAuth } from "../useAuth"
@@ -9,6 +9,10 @@ const IconWrapper = styled.div`
     top: ${space.medium};
     right: ${space.medium};
     color: ${color.stroke};
+    > svg {
+      width: 1rem;
+      height: 1rem;
+    }
   `}
 `
 
@@ -17,7 +21,7 @@ export const AuthIndicator = () => {
 
   return (
     <IconWrapper>
-      {authenticated ? <LockOpen2Icon /> : <LockClosedIcon />}
+      {authenticated ? <Unlock /> : <Lock />}
     </IconWrapper>
   )
 }

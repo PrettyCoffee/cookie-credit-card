@@ -1,4 +1,5 @@
-import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
+import { Minus, Plus } from "react-feather"
+
 import styled, { css } from "styled-components"
 
 import { IconButton } from "../../../components"
@@ -25,9 +26,9 @@ export const Actions = ({ onAdd, onEat }: ActionsProps) => {
   return (
     <Wrapper>
       {authenticated && (
-        <IconButton label="Add a cookie!" onClick={onAdd} icon={PlusIcon} />
+        <IconButton label="Add a cookie!" onClick={onAdd} icon={Plus} />
       )}
-      <IconButton label="Eat a cookie!" onClick={onEat} icon={MinusIcon} />
+      <IconButton label="Eat a cookie!" onClick={onEat} icon={Minus} />
     </Wrapper>
   )
 }
