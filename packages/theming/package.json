@@ -6,6 +6,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "ts-check": "tsc || echo 'ERROR: Typescript check failed'",
+    "update": "ncu -u -t latest",
     "lint": "run-lint ./src --config preact",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -14,7 +15,7 @@
     "styled-components": "^5.3.5"
   },
   "dependencies": {
-    "emotion-rgba": "^0.0.9"
+    "emotion-rgba": "^0.0.11"
   },
   "devDependencies": {
     "@ccc/eslint-config": "*",

@@ -6,6 +6,7 @@
   "main": "./index.ts",
   "scripts": {
     "compile": "tsc",
+    "update": "ncu -u -t latest",
     "lint": "run-lint ./index.ts",
     "lint:fix": "npm run lint -- --fix"
   },

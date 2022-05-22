@@ -10,14 +10,15 @@
     "compile": "parcel build src/index.html --no-source-maps",
     "clean": "rimraf ./dist && rimraf ./.parcel-cache",
     "ts-check": "tsc || echo 'ERROR: Typescript check failed'",
+    "update": "ncu -u -t latest",
     "lint": "run-lint ./src --config preact",
     "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.17.3",
+    "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@ccc/theming": "*",
     "@radix-ui/react-icons": "^1.1.1",
-    "emotion-rgba": "^0.0.9",
+    "emotion-rgba": "^0.0.11",
     "preact": "^10.7.2",
     "styled-components": "^5.3.5"
   },
