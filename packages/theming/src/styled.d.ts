@@ -26,7 +26,7 @@ interface Colors {
   secondary: string //Tertiary
 }
 
-declare module "styled-components" {
+export declare module "styled-components" {
   export interface DefaultTheme {
     space: Spacing
     color: Colors
