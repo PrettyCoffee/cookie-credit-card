@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
 
-export const Wrapper = styled.div`
+export const Layout = styled.div`
   ${({ theme: { color } }) => css`
     width: 100%;
     height: 100%;

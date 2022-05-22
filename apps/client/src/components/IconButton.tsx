@@ -84,7 +84,7 @@ type IconButtonProps = {
   onClick?: () => void
 }
 
-const IconButton = ({ icon: Icon, label, onClick }: IconButtonProps) => (
+export const IconButton = ({ icon: Icon, label, onClick }: IconButtonProps) => (
   <Button onClick={onClick}>
     <LeftLabel>
       <Icon />
@@ -96,5 +96,3 @@ const IconButton = ({ icon: Icon, label, onClick }: IconButtonProps) => (
     </RightLabel>
   </Button>
 )
-
-export default IconButton

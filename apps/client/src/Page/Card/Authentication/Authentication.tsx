@@ -36,7 +36,7 @@ const Caret = styled(CaretDownIcon)`
   `}
 `
 
-const Authentication = () => {
+export const Authentication = () => {
   const [focused, setFocused] = useState(false)
 
   const getFocus = () => setFocused(true)
@@ -54,5 +54,3 @@ const Authentication = () => {
     </Surface>
   )
 }
-
-export default Authentication

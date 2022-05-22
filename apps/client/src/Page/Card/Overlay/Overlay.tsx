@@ -6,7 +6,7 @@ import { Details } from "./Details"
 import { Name } from "./Name"
 import { Surface } from "./Surface"
 
-const Overlay = () => {
+export const Overlay = () => {
   const [cookies, setCookies] = useState(0)
   const handleAdd = () => setCookies(cookies + 1)
   const handleEat = () => cookies > 0 && setCookies(cookies - 1)
@@ -19,5 +19,3 @@ const Overlay = () => {
     </Surface>
   )
 }
-
-export default Overlay

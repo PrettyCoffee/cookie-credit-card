@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components"
 
-import Authentication from "./authentication"
-import Overlay from "./overlay"
+import { Authentication } from "./authentication"
+import { Overlay } from "./overlay"
 
 const Container = styled.div`
   ${({ theme: { space } }) => css`
@@ -14,11 +14,9 @@ const Container = styled.div`
   `}
 `
 
-const Card = () => (
+export const Card = () => (
   <Container>
     <Overlay />
     <Authentication />
   </Container>
 )
-
-export default Card

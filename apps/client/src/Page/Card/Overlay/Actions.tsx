@@ -1,7 +1,7 @@
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons"
 import styled, { css } from "styled-components"
 
-import IconButton from "../../../components/IconButton"
+import { IconButton } from "../../../components"
 import { useAuth } from "../../../providers/auth"
 
 const Wrapper = styled.div`
