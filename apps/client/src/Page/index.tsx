@@ -1,5 +1,5 @@
-import Card from "./Card"
-import Layout from "./Layout"
+import Card from "./card"
+import Layout from "./layout"
 
 const Page = () => (
   <Layout>

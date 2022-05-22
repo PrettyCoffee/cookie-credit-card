@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import Checklist from "../../../components/Checklist"
+import Checklist from "../../../components/checklist"
 
 const Items = styled.div`
   flex: 1;

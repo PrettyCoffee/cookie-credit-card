@@ -1,5 +1,5 @@
-import Page from "./Page"
-import Providers from "./Providers"
+import Page from "./page"
+import Providers from "./providers"
 
 export const App = () => (
   <Providers>

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 import { TextInput } from "../../../components/TextInput"
-import { useAuth } from "../../../Providers/Auth"
+import { useAuth } from "../../../providers/auth"
 
 const InputLayout = styled.div`
   position: absolute;

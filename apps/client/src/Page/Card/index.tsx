@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components"
 
-import Authentication from "./Authentication"
-import Overlay from "./Overlay"
+import Authentication from "./authentication"
+import Overlay from "./overlay"
 
 const Container = styled.div`
   ${({ theme: { space } }) => css`
