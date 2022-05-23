@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.17.12",
+    "@ccc/components": "*",
     "@ccc/theming": "*",
     "emotion-rgba": "^0.0.11",
     "preact": "^10.7.2",

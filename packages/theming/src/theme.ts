@@ -32,7 +32,12 @@ const peach: DefaultTheme["color"] = {
   secondary: "#87BCDE",
 }
 
-const invertColors = ({bg, fg, primary, secondary}: DefaultTheme["color"]) => ({
+const invertColors = ({
+  bg,
+  fg,
+  primary,
+  secondary,
+}: DefaultTheme["color"]) => ({
   fg: bg,
   bg: fg,
   stroke: bg.alt,

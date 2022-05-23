@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import { CountProp } from "./index"
+import { CountProp } from "./Checklist"
 import { Line } from "./Line"
 
 const Wrapper = styled.span`

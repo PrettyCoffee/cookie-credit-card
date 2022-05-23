@@ -1,4 +1,4 @@
-import {Icon} from "react-feather"
+import { Icon } from "react-feather"
 import styled, { css } from "styled-components"
 
 const Button = styled.button`

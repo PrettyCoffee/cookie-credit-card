@@ -19,9 +19,5 @@ const IconWrapper = styled.div`
 export const AuthIndicator = () => {
   const { authenticated } = useAuth()
 
-  return (
-    <IconWrapper>
-      {authenticated ? <Unlock /> : <Lock />}
-    </IconWrapper>
-  )
+  return <IconWrapper>{authenticated ? <Unlock /> : <Lock />}</IconWrapper>
 }

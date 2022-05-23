@@ -1,6 +1,6 @@
+import { PropsWithChildren } from "@ccc/components"
 import { useState } from "react"
 
-import { PropsWithChildren } from "../../components/fragments/PropsWithChildren"
 import { AuthContext } from "./AuthContext"
 import { AuthIndicator } from "./fragments/AuthIndicator"
 import {
