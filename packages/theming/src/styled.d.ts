@@ -32,10 +32,12 @@ interface Colors {
   secondary: string //Tertiary
 }
 
+export interface Theme {
+  space: Spacing
+  color: Colors
+  shadow: Shadows
+}
+
 export declare module "styled-components" {
-  export interface DefaultTheme {
-    space: Spacing
-    shadow: Shadows
-    color: Colors
-  }
+  export interface DefaultTheme extends Theme {}
 }
