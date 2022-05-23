@@ -1,6 +1,7 @@
+import { TextInput } from "@ccc/components"
+import { Key } from "react-feather"
 import styled from "styled-components"
 
-import { TextInput } from "../../../components/TextInput"
 import { useAuth } from "../../../providers/auth"
 
 const InputLayout = styled.div`
@@ -19,7 +20,14 @@ export const AuthInput = () => {
 
   return (
     <InputLayout>
-      <TextInput placeholder="Authenticate!" value={auth} onChange={setAuth} />
+      <TextInput
+        icon={Key}
+        inverted
+        type="password"
+        placeholder="Authenticate!"
+        value={auth}
+        onChange={setAuth}
+      />
     </InputLayout>
   )
 }
