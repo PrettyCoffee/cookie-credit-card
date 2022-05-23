@@ -1,12 +1,14 @@
+import { Text } from "@ccc/components"
 import styled, { css } from "styled-components"
-
-const Text = styled.div`
+const Layout = styled.div`
   ${({ theme: { space } }) => css`
     position: absolute;
     bottom: ${space.medium};
     left: 2rem;
-    font-size: 0.75rem;
   `}
 `
-
-export const Name = () => <Text>Jennys Cookie Credit Card</Text>
+export const Name = () => (
+  <Layout>
+    <Text.Small>Jennys Cookie Credit Card</Text.Small>
+  </Layout>
+)

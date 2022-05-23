@@ -1,14 +1,10 @@
+import { Text } from "@ccc/components"
 import styled from "styled-components"
 
 import { Checklist } from "../../../components"
 
 const Items = styled.div`
   flex: 1;
-`
-
-const Headline = styled.span`
-  font-weight: 700;
-  font-size: 2rem;
 `
 
 const ChecklistLayout = styled.div`
@@ -23,7 +19,9 @@ type DetailsProps = {
 
 export const Details = ({ cookies }: DetailsProps) => (
   <Items>
-    <Headline>Your Cookies:</Headline>
+    <Text.Large as="h1" bold>
+      Your Cookies:
+    </Text.Large>
     <ChecklistLayout>
       <Checklist count={cookies} />
     </ChecklistLayout>
