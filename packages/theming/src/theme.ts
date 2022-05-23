@@ -1,5 +1,11 @@
 import { DefaultTheme } from "styled-components"
 
+const shadow = {
+  low: "var(--shadow-elevation-low)",
+  medium: "var(--shadow-elevation-medium)",
+  high: "var(--shadow-elevation-high)",
+}
+
 const space = {
   smallest: "0.125rem",
   small: "0.5rem",
@@ -28,5 +34,6 @@ const color: DefaultTheme["color"] = {
 
 export const theme: DefaultTheme = {
   space,
+  shadow,
   color,
 }

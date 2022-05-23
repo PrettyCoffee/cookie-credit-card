@@ -1,5 +1,11 @@
 import "styled-components"
 
+interface Shadows {
+  low: string
+  medium: string
+  high: string
+}
+
 interface Spacing {
   smallest: string
   small: string
@@ -29,6 +35,7 @@ interface Colors {
 export declare module "styled-components" {
   export interface DefaultTheme {
     space: Spacing
+    shadow: Shadows
     color: Colors
   }
 }

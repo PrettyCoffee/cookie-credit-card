@@ -4,13 +4,13 @@ import { Authentication } from "./authentication"
 import { Overlay } from "./overlay"
 
 const Container = styled.div`
-  ${({ theme: { space } }) => css`
+  ${({ theme: { space, shadow } }) => css`
     position: relative;
     overflow: hidden;
     border-radius: ${space.medium};
     margin: ${space.largest};
 
-    box-shadow: var(--shadow-elevation-medium);
+    box-shadow: ${shadow.medium};
   `}
 `
 
