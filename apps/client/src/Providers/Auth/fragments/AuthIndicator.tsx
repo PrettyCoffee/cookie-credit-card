@@ -1,3 +1,4 @@
+import { Icon } from "@ccc/components"
 import { Lock, Unlock } from "react-feather"
 import styled, { css } from "styled-components"
 
@@ -18,6 +19,11 @@ const IconWrapper = styled.div`
 
 export const AuthIndicator = () => {
   const { authenticated } = useAuth()
+  const icon = authenticated ? Unlock : Lock
 
-  return <IconWrapper>{authenticated ? <Unlock /> : <Lock />}</IconWrapper>
+  return (
+    <IconWrapper>
+      <Icon icon={icon} />
+    </IconWrapper>
+  )
 }

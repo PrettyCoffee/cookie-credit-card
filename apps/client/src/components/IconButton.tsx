@@ -1,4 +1,4 @@
-import { Icon } from "react-feather"
+import { IconDefinition } from "@ccc/components"
 import styled, { css } from "styled-components"
 
 const Button = styled.button`
@@ -78,7 +78,7 @@ const RightLabel = styled(Label)`
 `
 
 type IconButtonProps = {
-  icon: Icon
+  icon: IconDefinition
   label: string
   onClick?: () => void
 }

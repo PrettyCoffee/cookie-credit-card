@@ -1,3 +1,4 @@
+import { Icon } from "@ccc/components"
 import { useState } from "react"
 import { ChevronDown } from "react-feather"
 import styled, { css } from "styled-components"
@@ -23,17 +24,12 @@ const Surface = styled(CardSurface)<{ focused: boolean }>`
   `}
 `
 
-const Caret = styled(ChevronDown)`
-  ${({ theme: { color } }) => css`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    height: 2rem;
-    width: 2rem;
-    color: ${color.bg.base};
-  `}
+const PositionedIcon = styled(Icon)`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 `
 
 export const Authentication = () => {
@@ -50,7 +46,7 @@ export const Authentication = () => {
       onBlur={loseFocus}
     >
       <AuthInput />
-      <Caret />
+      <PositionedIcon icon={ChevronDown} size="large" inverted />
     </Surface>
   )
 }
