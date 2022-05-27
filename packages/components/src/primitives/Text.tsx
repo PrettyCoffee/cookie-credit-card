@@ -13,6 +13,7 @@ const getFontSize = ({ space }: DefaultTheme, size?: TextSize) => {
 export interface TextProps extends InvertProp {
   size?: TextSize
   bold?: boolean
+  title?: string
 }
 
 export const getTextStyles = (
