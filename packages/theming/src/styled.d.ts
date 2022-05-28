@@ -1,9 +1,12 @@
 import "styled-components"
+import { GetShadowOptions } from "./getShadow"
+
+type ShadowGetter = (color: string, options?: GetShadowOptions) => string
 
 interface Shadows {
-  low: string
-  medium: string
-  high: string
+  low: ShadowGetter
+  medium: ShadowGetter
+  high: ShadowGetter
 }
 
 interface Spacing {

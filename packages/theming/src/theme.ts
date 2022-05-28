@@ -1,9 +1,16 @@
 import { DefaultTheme } from "styled-components"
 
-const shadow = {
-  low: "var(--shadow-elevation-low)",
-  medium: "var(--shadow-elevation-medium)",
-  high: "var(--shadow-elevation-high)",
+import { getShadow, GetShadowOptions } from "./getShadow"
+
+const createShadow =
+  (size: "low" | "medium" | "high") =>
+  (color: string, options?: GetShadowOptions) =>
+    getShadow(size, color, options)
+
+const shadow: DefaultTheme["shadow"] = {
+  low: createShadow("low"),
+  medium: createShadow("medium"),
+  high: createShadow("high"),
 }
 
 const space: DefaultTheme["space"] = {
@@ -18,13 +25,13 @@ const space: DefaultTheme["space"] = {
 
 const peach: DefaultTheme["color"] = {
   fg: {
-    base: "#455173", // inverted shadow tint: 225deg 31% 20%
-    alt: "#303F69",
+    base: "#455173", // shadow tint: 225deg 31% 20%
+    alt: "#303F69", // shadow tint: 225deg 49% 15%;
     button: "#161C2E",
   },
   bg: {
     base: "#fef6e4", // shadow tint: 42deg 30% 59%
-    alt: "#f3d2c1",
+    alt: "#f3d2c1", // shadow tint: 21deg 31% 53%
     button: "#F09E97",
   },
   stroke: "#303F69",
@@ -37,12 +44,14 @@ const invertColors = ({
   fg,
   primary,
   secondary,
+  ...color
 }: DefaultTheme["color"]) => ({
+  ...color,
   fg: bg,
   bg: fg,
   stroke: bg.alt,
-  primary,
-  secondary,
+  primary: secondary,
+  secondary: primary,
 })
 
 export const getTheme = (inverted: boolean): DefaultTheme => ({
