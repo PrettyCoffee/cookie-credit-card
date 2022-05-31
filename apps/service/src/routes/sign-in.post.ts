@@ -19,8 +19,8 @@ const handler: SignInRoute["handler"] = (request, response, DB) => {
   const { name, password } = validateRequestBody(request.body, Verifier)
   const userId = DB.validateCredentials(name, password)
   if (!userId) throw errors.BAD_REQUEST
-  const jwt = Token.sign({ userId })
-  response.header("Authorization", jwt).status(200).json({ userId })
+  const token = Token.sign({ userId })
+  response.header("Authorization", token).status(200).json({ token, userId })
 }
 
 export const route: SignInRoute = {
