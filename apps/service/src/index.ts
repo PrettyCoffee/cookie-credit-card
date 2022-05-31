@@ -1,3 +1,4 @@
+import cors from "cors"
 import express from "express"
 
 import { CookieDatabase } from "./database"
@@ -11,6 +12,14 @@ const databasePath = path.resolve("../../data")
 const DB = new CookieDatabase(databasePath)
 
 const app = express()
+
+app.use(cors())
+
+/*
+app.use(cors({
+    origin: [ 'http://localhost:3000', 'http://localhost:8000' ]
+}));
+*/
 
 app.use(express.json())
 

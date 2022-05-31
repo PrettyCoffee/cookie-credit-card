@@ -1,7 +1,15 @@
-import { errors } from "../utils/errors"
-import { Route } from "./types"
+import {
+  GetCookiesRequest,
+  GetCookiesResponse,
+  getCookiesRoute,
+} from "@ccc/api-definition"
 
-const handler: Route["handler"] = (request, response, DB) => {
+import { errors } from "../utils/errors"
+import { ExpressRoute } from "./types"
+
+type GetCookiesRoute = ExpressRoute<GetCookiesRequest, GetCookiesResponse>
+
+const handler: GetCookiesRoute["handler"] = (request, response, DB) => {
   const userId = request.headers.userId
   if (!userId || typeof userId !== "string") throw errors.BAD_REQUEST
 
@@ -12,9 +20,7 @@ const handler: Route["handler"] = (request, response, DB) => {
   response.status(200).json(cookies)
 }
 
-export const route: Route = {
-  path: "/cookies",
-  method: "get",
-  protect: true,
+export const route: GetCookiesRoute = {
+  ...getCookiesRoute,
   handler,
 }

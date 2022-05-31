@@ -1,3 +1,4 @@
+import { ErrorResponse } from "@ccc/api-definition"
 import { NextFunction, Request, Response } from "express"
 
 export type ErrorId =
@@ -8,10 +9,8 @@ export type ErrorId =
   | "PASSWORD_NOT_VALID"
   | "UNEXPECTED"
 
-interface Error<Id extends ErrorId> {
+interface Error<Id extends ErrorId> extends ErrorResponse {
   id: Id
-  code: number
-  message: string
 }
 
 type Errors = {

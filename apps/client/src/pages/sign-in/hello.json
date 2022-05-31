@@ -1,0 +1,106 @@
+[
+  {
+    "language": "English",
+    "hello": "Welcome!"
+  },
+  {
+    "language": "Chinese",
+    "hello": "您好"
+  },
+  {
+    "language": "Czech",
+    "hello": "Ahoj"
+  },
+  {
+    "language": "Danish",
+    "hello": "Hej"
+  },
+  {
+    "language": "English",
+    "hello": "Hello"
+  },
+  {
+    "language": "Finnish",
+    "hello": "Hei"
+  },
+  {
+    "language": "French",
+    "hello": "Bonjour"
+  },
+  {
+    "language": "German",
+    "hello": "Hallo"
+  },
+  {
+    "language": "German",
+    "hello": "Willkommen!"
+  },
+  {
+    "language": "Hawaiian",
+    "hello": "Alohaʻoe"
+  },
+  {
+    "language": "Hungarian",
+    "hello": "Helló"
+  },
+  {
+    "language": "Icelandic",
+    "hello": "Halló"
+  },
+  {
+    "language": "Italian",
+    "hello": "Ciao"
+  },
+  {
+    "language": "Japanese",
+    "hello": "こんにちは"
+  },
+  {
+    "language": "Korean",
+    "hello": "안녕하세요."
+  },
+  {
+    "language": "Latin",
+    "hello": "salve"
+  },
+  {
+    "language": "Luxembourgish",
+    "hello": "Moien"
+  },
+  {
+    "language": "Polish",
+    "hello": "Cześć"
+  },
+  {
+    "language": "Portuguese",
+    "hello": "Olá"
+  },
+  {
+    "language": "Romanian",
+    "hello": "Alo"
+  },
+  {
+    "language": "Slovak",
+    "hello": "ahoj"
+  },
+  {
+    "language": "Slovenian",
+    "hello": "Pozdravljeni"
+  },
+  {
+    "language": "Spanish",
+    "hello": "Hola"
+  },
+  {
+    "language": "Swedish",
+    "hello": "Hallå"
+  },
+  {
+    "language": "Turkish",
+    "hello": "Merhaba"
+  },
+  {
+    "language": "Ukranian",
+    "hello": "Здрастуйте"
+  }
+]

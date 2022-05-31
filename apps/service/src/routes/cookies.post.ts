@@ -1,22 +1,28 @@
+import {
+  TransferCookiesRequest,
+  TransferCookiesResponse,
+  transferCookiesRoute,
+} from "@ccc/api-definition"
+
 import { errors } from "../utils/errors"
 import { Token } from "../utils/token"
 import {
   RequestBodyValidation,
   validateRequestBody,
 } from "../utils/validateRequestBody"
-import { Route } from "./types"
+import { ExpressRoute } from "./types"
 
-type RequestBody = {
-  name: string
-  amount: number
-}
+type TransferCookiesRoute = ExpressRoute<
+  TransferCookiesRequest,
+  TransferCookiesResponse
+>
 
-const Verifier: RequestBodyValidation<RequestBody> = {
+const Verifier: RequestBodyValidation<TransferCookiesRequest> = {
   name: { type: "string", required: true },
   amount: { type: "number", required: true },
 }
 
-const handler: Route["handler"] = (request, response, DB) => {
+const handler: TransferCookiesRoute["handler"] = (request, response, DB) => {
   const { name, amount } = validateRequestBody(request.body, Verifier)
   const userId = request.headers.userId
   if (!userId || typeof userId !== "string") throw errors.BAD_REQUEST
@@ -25,12 +31,10 @@ const handler: Route["handler"] = (request, response, DB) => {
   user?.transferCookies(name, amount)
 
   const jwt = Token.sign({ userId })
-  response.header("Authorization", jwt).status(204).json({ userId })
+  response.header("Authorization", jwt).status(204).end()
 }
 
-export const route: Route = {
-  path: "/cookies",
-  method: "post",
-  protect: true,
+export const route: TransferCookiesRoute = {
+  ...transferCookiesRoute,
   handler,
 }

@@ -9,7 +9,7 @@ servers:
     description: Local development server
     
 paths:
-  /auth/login:
+  /auth/sign-in:
     post:
       description: User login      
       requestBody:
@@ -28,7 +28,7 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedError'
           
-  /auth/register:
+  /auth/sign-up:
     post:
       description: User registration      
       requestBody:
