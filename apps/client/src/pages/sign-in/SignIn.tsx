@@ -1,17 +1,18 @@
 import { Card, Link, Spacing } from "@ccc/components"
+import { useMemo } from "react"
 import { Users, LogIn } from "react-feather"
 import styled from "styled-components"
+import { Link as WouterLink } from "wouter-preact"
 
 import { AuthForm } from "../../common/AuthForm"
 import { AvatarIcon } from "../../common/AvatarIcon"
 import { CardHeadline } from "../../common/CardHeadline"
-import { ThemeToggle } from "../../common/ThemeToggle"
 import { useAuth } from "../../providers/auth"
 import Hello from "./hello.json"
 
 const randomHello = () => {
   const amount = Hello.length
-  const index = Math.floor(Math.random() * amount)
+  const index = Math.floor(Math.random() * 100) % amount
   return Hello[index]
 }
 
@@ -26,7 +27,8 @@ const Wrapper = styled.div`
 
 export const SignIn = () => {
   const { signIn } = useAuth()
-  const hello = randomHello()
+  const hello = useMemo(randomHello, [])
+
   return (
     <div>
       <CardHeadline caption={hello.hello} title={hello.language} />
@@ -42,9 +44,13 @@ export const SignIn = () => {
           </Wrapper>
         </Card.Front>
         <Card.Back>
-          <Link label="Create an account?" inverted />
+          <WouterLink href="/sign-up">
+            <Link label="Create an account?" inverted />
+          </WouterLink>
           <Spacing bottom="small" />
-          <Link href="#" label="Forgot password?" inverted />
+          <WouterLink href="/forgot">
+            <Link label="Forgot password?" inverted />
+          </WouterLink>
         </Card.Back>
       </Card>
     </div>

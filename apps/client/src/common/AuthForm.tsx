@@ -27,6 +27,7 @@ export const AuthForm = ({
     <Wrapper>
       <TextInput
         label="Name"
+        autoComplete="username"
         value={name}
         onChange={setName}
         icon={User}
@@ -35,6 +36,7 @@ export const AuthForm = ({
       <TextInput
         type="password"
         label="Password"
+        autoComplete="current-password"
         value={password}
         onChange={setPassword}
         icon={Key}
