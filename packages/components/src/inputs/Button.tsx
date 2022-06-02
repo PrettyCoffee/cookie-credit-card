@@ -19,7 +19,7 @@ const BaseButton = styled.button<InvertProp>`
     box-shadow: ${shadow.low(color.bg.button)};
 
     background-color: ${color.bg.button};
-    color: ${color.fg.button};
+    color: ${color.fg.alt};
     :hover {
       background-color: ${color.primary};
     }
@@ -30,7 +30,7 @@ const BaseButton = styled.button<InvertProp>`
     ${inverted &&
     css`
       background-color: ${color.fg.button};
-      color: ${color.bg.button};
+      color: ${color.bg.alt};
       box-shadow: ${shadow.low(color.fg.button)};
       :hover {
         background-color: ${color.fg.alt};
