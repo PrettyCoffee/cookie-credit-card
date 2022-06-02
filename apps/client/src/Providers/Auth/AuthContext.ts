@@ -1,14 +1,18 @@
 import { createContext } from "react"
 
 type AuthState = {
-  auth: string
-  setAuth: (value: string) => void
+  jwt: string | null
+  signIn: (name: string, password: string) => void
+  signUp: (name: string, password: string) => void
+  signOut: () => void
   authenticated: boolean
 }
 
 const initialAuth: AuthState = {
-  auth: "",
-  setAuth: () => null,
+  jwt: null,
+  signIn: () => null,
+  signUp: () => null,
+  signOut: () => null,
   authenticated: false,
 }
 

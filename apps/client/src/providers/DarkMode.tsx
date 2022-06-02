@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "@ccc/components"
 import { createContext, useContext } from "react"
 
-import { useStorage } from "./auth/utils"
+import { useStorage } from "./utils"
 
 type State = [boolean, () => void]
 

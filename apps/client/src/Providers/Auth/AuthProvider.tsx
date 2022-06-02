@@ -1,34 +1,58 @@
 import { PropsWithChildren } from "@ccc/components"
 import { useState } from "react"
 
+import { signIn, signUp } from "../../service"
 import { AuthContext } from "./AuthContext"
-import { AuthIndicator } from "./fragments/AuthIndicator"
-import {
-  getNewAuthDate,
-  safetyKey,
-  storageKey,
-  sha256,
-  useStorage,
-  isExpired,
-} from "./utils"
+
+export const storageKey = "ccc-auth"
+const useAuthToken = () => {
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem(storageKey)
+  )
+
+  const handleChange = (token: string | null) => {
+    if (token) localStorage.setItem(storageKey, token)
+    else localStorage.removeItem(storageKey)
+
+    setToken(token)
+  }
+
+  return [token, handleChange] as const
+}
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [authenticated, setAuthenticated] = useState(false)
-  const [{ auth, expires }, setAuth] = useStorage(storageKey, {
-    auth: "",
-    expires: getNewAuthDate(),
-  })
-  sha256(auth).then(hash => setAuthenticated(hash === safetyKey))
+  const [token, setToken] = useAuthToken()
 
-  const handleAuthChange = (value: string) => setAuth({ auth: value, expires })
+  const handleSignIn = (name: string, password: string) => {
+    signIn(name, password).then(response => {
+      if (response.type === "success") {
+        const { token } = response.body
+        setToken(token)
+      }
+    })
+  }
 
-  if (isExpired(expires)) setAuth({ auth: "", expires: getNewAuthDate() })
+  const handleSignUp = (name: string, password: string) => {
+    signUp(name, password).then(response => {
+      if (response.type === "success") {
+        const { token } = response.body
+        setToken(token)
+      }
+    })
+  }
+
+  const handleSignOut = () => setToken(null)
 
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth: handleAuthChange, authenticated }}
+      value={{
+        authenticated: Boolean(token),
+        jwt: token,
+        signIn: handleSignIn,
+        signUp: handleSignUp,
+        signOut: handleSignOut,
+      }}
     >
-      <AuthIndicator />
       {children}
     </AuthContext.Provider>
   )
