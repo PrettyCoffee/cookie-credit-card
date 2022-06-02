@@ -33,6 +33,10 @@ interface Colors {
   stroke: string //Stroke
   primary: string //Secondary
   secondary: string //Tertiary
+  alert: {
+    error: string
+    success: string
+  }
 }
 
 export interface Theme {

@@ -27,7 +27,7 @@ const peach: DefaultTheme["color"] = {
   fg: {
     base: "#455173", // shadow tint: 225deg 31% 20%
     alt: "#303F69", // shadow tint: 225deg 49% 15%;
-    button: "#161C2E",
+    button: "#283253", //old: "#161C2E",
   },
   bg: {
     base: "#fef6e4", // shadow tint: 42deg 30% 59%
@@ -36,7 +36,11 @@ const peach: DefaultTheme["color"] = {
   },
   stroke: "#303F69",
   primary: "#f582ae",
-  secondary: "#87BCDE",
+  secondary: "#87BCDE", //old: "#276890",
+  alert: {
+    error: "#DB5461",
+    success: "#8FBC8F",
+  },
 }
 
 const invertColors = ({
