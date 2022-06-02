@@ -1,30 +1,44 @@
-import { TextInput, Text } from "@ccc/components"
-import { useState } from "react"
-import styled, { css } from "styled-components"
+import { Card, Link } from "@ccc/components"
+import { UserPlus, LogIn } from "react-feather"
+import styled from "styled-components"
+import { Link as WouterLink } from "wouter-preact"
+
+import { AuthForm } from "../../common/AuthForm"
+import { AvatarIcon } from "../../common/AvatarIcon"
+import { CardHeadline } from "../../common/CardHeadline"
+import { useAuth } from "../../providers/auth"
 
 const Wrapper = styled.div`
-  ${({ theme: { space } }) => css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: ${space.medium};
-  `}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2rem;
 `
 
 export const SignUp = () => {
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
+  const { signUp } = useAuth()
   return (
-    <Wrapper>
-      <Text.Medium inverted>Create an account</Text.Medium>
-      <TextInput label="Name" inverted value={name} onChange={setName} />
-      <TextInput
-        label="Password"
-        inverted
-        value={password}
-        onChange={setPassword}
-      />
-    </Wrapper>
+    <div>
+      <CardHeadline caption="Create account" />
+      <Card>
+        <Card.Front>
+          <Wrapper>
+            <AvatarIcon icon={UserPlus} />
+            <AuthForm
+              submitCaption="Sign up"
+              submitIcon={LogIn}
+              onSubmit={signUp}
+            />
+          </Wrapper>
+        </Card.Front>
+        <Card.Back>
+          <WouterLink href="/sign-in">
+            <Link label="Use existing account?" inverted />
+          </WouterLink>
+        </Card.Back>
+      </Card>
+    </div>
   )
 }
