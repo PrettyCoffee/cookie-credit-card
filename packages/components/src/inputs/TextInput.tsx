@@ -115,6 +115,7 @@ export interface TextInputProps extends InputProps, LabelProps, IconProps {
   value?: string
   placeholder?: string
   onChange?: (value: string) => void
+  autoComplete?: "on" | "off" | "username" | "current-password"
 }
 
 export const TextInput = ({
@@ -124,6 +125,7 @@ export const TextInput = ({
   type = "text",
   inverted,
   fixedWidth,
+  autoComplete = "off",
   ...delegated
 }: TextInputProps) => (
   <WithOptionalLabel label={label} inverted={inverted} fixedWidth={fixedWidth}>
@@ -133,6 +135,7 @@ export const TextInput = ({
         inverted={inverted}
         fixedWidth={fixedWidth}
         onChange={event => onChange?.(event.currentTarget.value)}
+        autoComplete={autoComplete}
         {...delegated}
       />
     </WithOptionalIcon>
