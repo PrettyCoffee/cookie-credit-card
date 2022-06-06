@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "@ccc/components"
 import { useState, useEffect } from "react"
 import {
   Route,
@@ -54,7 +55,7 @@ const ProtectedRoute = ({
   return <Route component={component} {...props} />
 }
 
-export const Routes = () => (
+export const Routes = ({ children }: PropsWithChildren) => (
   <Router hook={useHashLocation}>
     <Switch>
       <ProtectedRoute path="/card" component={Card} />
@@ -64,5 +65,6 @@ export const Routes = () => (
 
       <AuthBasedRedirect />
     </Switch>
+    {children}
   </Router>
 )

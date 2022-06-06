@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
 
-import { AuthIndicator } from "./common/AuthIndicator"
+import { CookieHeader } from "./common/CookieHeader"
 import { ThemeToggle } from "./common/ThemeToggle"
 import { Routes } from "./pages"
 import { Providers } from "./providers"
@@ -21,10 +21,11 @@ const Layout = styled.div`
 
 export const App = () => (
   <Providers>
-    <ThemeToggle />
-    <AuthIndicator />
     <Layout>
-      <Routes />
+      <Routes>
+        <ThemeToggle />
+        <CookieHeader />
+      </Routes>
     </Layout>
   </Providers>
 )
