@@ -36,6 +36,10 @@ const Container = styled.button`
   outline: none;
   cursor: pointer;
   border-radius: 0.5rem;
+
+  :focus-visible {
+    outline: 1px solid ${({ theme }) => theme.color.fg.button};
+  }
 `
 
 const getAnimation = (active: boolean) => {
