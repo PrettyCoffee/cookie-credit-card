@@ -47,6 +47,7 @@ export const AuthForm = ({
           label={submitCaption}
           icon={submitIcon}
           onClick={() => onSubmit(name, password)}
+          disabled={!name || !password}
         />
       </Spacing>
     </Wrapper>

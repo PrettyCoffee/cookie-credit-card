@@ -20,11 +20,16 @@ const BaseButton = styled.button<InvertProp>`
 
     background-color: ${color.bg.button};
     color: ${color.fg.alt};
-    :hover {
+    :hover:enabled {
       background-color: ${color.primary};
     }
-    :focus-visible {
+    :focus-visible:enabled {
       outline: ${space.smallest} solid ${color.fg.button};
+    }
+    :disabled {
+      cursor: default;
+      filter: grayscale(50%);
+      opacity: 0.5;
     }
 
     ${inverted &&
@@ -46,6 +51,7 @@ interface ButtonProps extends InvertProp {
   label: string
   icon?: IconDefinition
   onClick?: () => void
+  disabled?: boolean
 }
 
 export const Button = ({ label, icon, ...delegated }: ButtonProps) => (
