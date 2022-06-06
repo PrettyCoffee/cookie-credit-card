@@ -9,3 +9,9 @@ export interface ErrorResponse {
   id: string
   message: string
 }
+
+export interface TokenPayload {
+  id: string
+  name: string
+  role: string
+}

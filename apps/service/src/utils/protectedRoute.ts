@@ -7,10 +7,10 @@ export const protectedRoute: RequestHandler = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1]
   try {
     const payload = Token.verify(token)
-    if (!payload || !payload.userId) throw errors.BAD_REQUEST
+    if (!payload) throw errors.BAD_REQUEST
 
-    req.headers.userId = payload.userId
-    const newToken = Token.sign(payload)
+    req.headers.token = payload as any
+    const newToken = Token.sign(payload as any)
     res.setHeader("Authorization", newToken)
   } catch {
     throw errors.UNAUTHORIZED

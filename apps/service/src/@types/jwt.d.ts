@@ -1,7 +1,5 @@
-export interface CustomPayload {
-  userId?: string
-}
+import { TokenPayload } from "@ccc/api-definition"
 
 declare module "jsonwebtoken" {
-  export interface JwtPayload extends CustomPayload {}
+  export interface JwtPayload extends TokenPayload {}
 }

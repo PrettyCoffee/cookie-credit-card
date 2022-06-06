@@ -42,15 +42,15 @@ export class CookieDatabase {
   }
 
   public createUser(name: string, password: string) {
-    const user = this.getUserTable().findOne("name", name)
-    if (user) throw errors.NAME_ALREADY_EXISTS
+    const existing = this.getUserTable().findOne("name", name)
+    if (existing) throw errors.NAME_ALREADY_EXISTS
     if (!Password.validate(password)) throw errors.PASSWORD_NOT_VALID
-    const { id } = this.getUserTable().create({
+    const user = this.getUserTable().create({
       name,
       password: Password.encrypt(name, password, ENV.PWD_SECRET),
       role: "user",
     })
-    return id
+    return user
   }
 
   public deleteUser(name: string) {
@@ -66,7 +66,7 @@ export class CookieDatabase {
     if (!user) return false
     const isValid =
       user.password === Password.encrypt(name, password, ENV.PWD_SECRET)
-    return isValid ? user.id : false
+    return isValid ? user : false
   }
 
   public getUserById(id: string) {

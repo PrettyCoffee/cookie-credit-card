@@ -16,9 +16,9 @@ const Verifier: RequestBodyValidation<AuthRequest> = {
 
 const handler: SignUpRoute["handler"] = (request, response, DB) => {
   const { name, password } = validateRequestBody(request.body, Verifier)
-  const userId = DB.createUser(name, password)
-  const token = Token.sign({ userId })
-  response.header("Authorization", token).status(201).json({ token, userId })
+  const { id, role } = DB.createUser(name, password)
+  const token = Token.sign({ id, name, role })
+  response.header("Authorization", token).status(201).json({ token })
 }
 
 export const route: SignUpRoute = {

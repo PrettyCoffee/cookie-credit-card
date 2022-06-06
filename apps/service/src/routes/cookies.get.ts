@@ -5,15 +5,16 @@ import {
 } from "@ccc/api-definition"
 
 import { errors } from "../utils/errors"
+import { getTokenFromHeaders } from "../utils/getTokenFromHeaders"
 import { ExpressRoute } from "./types"
 
 type GetCookiesRoute = ExpressRoute<GetCookiesRequest, GetCookiesResponse>
 
 const handler: GetCookiesRoute["handler"] = (request, response, DB) => {
-  const userId = request.headers.userId
-  if (!userId || typeof userId !== "string") throw errors.BAD_REQUEST
+  const payload = getTokenFromHeaders(request.headers)
+  if (!payload) throw errors.BAD_REQUEST
 
-  const user = DB.getUserById(userId)
+  const user = DB.getUserById(payload.id)
   const cookies = user?.getCookies()
   if (!cookies) throw errors.BAD_REQUEST
 

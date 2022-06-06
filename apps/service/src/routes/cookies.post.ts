@@ -5,6 +5,7 @@ import {
 } from "@ccc/api-definition"
 
 import { errors } from "../utils/errors"
+import { getTokenFromHeaders } from "../utils/getTokenFromHeaders"
 import { Token } from "../utils/token"
 import {
   RequestBodyValidation,
@@ -24,13 +25,13 @@ const Verifier: RequestBodyValidation<TransferCookiesRequest> = {
 
 const handler: TransferCookiesRoute["handler"] = (request, response, DB) => {
   const { name, amount } = validateRequestBody(request.body, Verifier)
-  const userId = request.headers.userId
-  if (!userId || typeof userId !== "string") throw errors.BAD_REQUEST
+  const payload = getTokenFromHeaders(request.headers)
+  if (!payload) throw errors.BAD_REQUEST
 
-  const user = DB.getUserById(userId)
+  const user = DB.getUserById(payload.id)
   user?.transferCookies(name, amount)
 
-  const jwt = Token.sign({ userId })
+  const jwt = Token.sign(payload)
   response.header("Authorization", jwt).status(204).end()
 }
 
