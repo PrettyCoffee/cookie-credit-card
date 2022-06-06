@@ -13,9 +13,7 @@ const BaseButton = styled.button<InvertProp>`
     align-items: center;
     gap: ${space.small};
 
-    border: none;
     border-radius: ${space.smallest};
-    cursor: pointer;
     box-shadow: ${shadow.low(color.bg.button)};
 
     background-color: ${color.bg.button};
