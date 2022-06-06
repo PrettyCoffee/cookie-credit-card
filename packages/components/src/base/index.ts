@@ -1,4 +1,5 @@
 export * from "./PropsWithChildren"
+export * from "./useHeightPrediction"
 export * from "./IconDefinition"
 export * from "./InvertProp"
 export * from "./VisuallyHidden"

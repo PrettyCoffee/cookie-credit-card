@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import { ChevronDown } from "react-feather"
 import styled, { css } from "styled-components"
 
-import { PropsWithChildren } from "../../base"
+import { PropsWithChildren, useHeightPrediction } from "../../base"
 import { Icon } from "../../primitives"
 import { Surface } from "./Surface"
 
 const Layout = styled(Surface)<{
   focused: boolean
-  height: number
+  height: number | null
 }>`
   ${({ theme: { color, space }, focused, height }) => css`
     position: relative;
@@ -17,23 +17,20 @@ const Layout = styled(Surface)<{
     padding: ${space.largest} 2rem;
     cursor: pointer;
 
-    margin-top: calc(-${height}px + ${space.medium});
-    :hover {
-      margin-top: calc(-${height}px + 2rem);
-    }
-
-    ${focused &&
+    ${height !== null &&
     css`
-      cursor: default;
-      &,
+      margin-top: calc(-${height}px + ${space.medium});
       :hover {
-        margin-top: -${space.large};
+        margin-top: calc(-${height}px + 2rem);
       }
-    `}
-
-    ${!height &&
-    css`
-      margin-top: -50%;
+      ${focused &&
+      css`
+        cursor: default;
+        &,
+        :hover {
+          margin-top: -${space.large};
+        }
+      `}
     `}
   `}
 `
@@ -46,37 +43,25 @@ const PositionedIcon = styled(Icon)`
   margin: 0 auto;
 `
 
-const useHeight = () => {
-  const ref = useRef<HTMLDivElement>(null)
-  const [height, setHeight] = useState(0)
-
-  useEffect(() => {
-    const element = ref.current
-    if (!element) return
-    setHeight(element.clientHeight)
-  }, [])
-
-  return [height, ref] as const
-}
-
 export const Back = ({ children }: PropsWithChildren) => {
   const [focused, setFocused] = useState(false)
-  const [height, ref] = useHeight()
+  const { height, HeightPrediction } = useHeightPrediction()
 
   const getFocus = () => setFocused(true)
   const loseFocus = () => setFocused(false)
 
   return (
-    <Layout
-      ref={ref}
-      tabIndex={0}
-      focused={focused}
-      height={height}
-      onFocus={getFocus}
-      onBlur={loseFocus}
-    >
-      {children}
-      <PositionedIcon icon={ChevronDown} size="large" inverted />
-    </Layout>
+    <HeightPrediction>
+      <Layout
+        tabIndex={0}
+        focused={focused}
+        height={height}
+        onFocus={getFocus}
+        onBlur={loseFocus}
+      >
+        {children}
+        <PositionedIcon icon={ChevronDown} size="large" inverted />
+      </Layout>
+    </HeightPrediction>
   )
 }
