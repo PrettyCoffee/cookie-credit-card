@@ -1,7 +1,7 @@
 import { Text } from "@ccc/components"
 import styled from "styled-components"
 
-import { Checklist } from "../../../components"
+import { Checklist } from "./checklist"
 
 const Items = styled.div`
   flex: 1;
