@@ -2,6 +2,7 @@ import { PropsWithChildren } from "@ccc/components"
 import { ThemeProvider } from "@ccc/theming"
 
 import { AuthProvider } from "./auth"
+import { CookieProvider } from "./cookies"
 import { DarkModeConsumer, DarkModeProvider } from "./DarkMode"
 
 export const Providers = ({ children }: PropsWithChildren) => (
@@ -9,7 +10,9 @@ export const Providers = ({ children }: PropsWithChildren) => (
     <DarkModeConsumer>
       {([darkMode]) => (
         <ThemeProvider inverted={darkMode}>
-          <AuthProvider>{children}</AuthProvider>
+          <CookieProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </CookieProvider>
         </ThemeProvider>
       )}
     </DarkModeConsumer>
