@@ -15,7 +15,8 @@ const Button = styled.button`
     border-radius: 50%;
     color: ${color.fg.button};
 
-    :hover, :active {
+    :hover,
+    :active {
       background-color: ${color.bg.button};
     }
     :active {

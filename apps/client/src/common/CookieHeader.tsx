@@ -1,8 +1,8 @@
 import { Header } from "@ccc/components"
-import { Users, LogOut, Home, Book, Info, HelpCircle } from "react-feather"
+import { Users, LogOut, Home, Book, HelpCircle } from "react-feather"
 import { useLocation } from "wouter-preact"
-import { routes } from "../pages/routes"
 
+import { routes } from "../pages/routes"
 import { useAuth } from "../providers/auth"
 
 export const CookieHeader = () => {

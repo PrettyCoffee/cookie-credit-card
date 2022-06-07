@@ -1,5 +1,5 @@
+import { useMemo } from "preact/hooks"
 import styled, { css } from "styled-components"
-import {useMemo} from "preact/hooks"
 
 import { IconDefinition } from "../../base"
 import { IconButton } from "../../inputs"
@@ -34,10 +34,10 @@ export const Header = ({ actions }: HeaderProps) => {
     [actions]
   )
   return (
-  <Container>
-    {availableActions.map(props => (
-      <IconButton key={props.label} {...props} />
-    ))}
-  </Container>
-)
+    <Container>
+      {availableActions.map(props => (
+        <IconButton key={props.label} {...props} />
+      ))}
+    </Container>
+  )
 }

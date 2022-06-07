@@ -52,13 +52,13 @@ const ProtectedRoute = ({
   if (!authenticated) navigate(routes.signIn.path)
   return <Route component={component} {...props} />
 }
-  
+
 export const Routes = ({ children }: PropsWithChildren) => (
   <Router hook={useHashLocation}>
     <Switch>
       <AuthRoute {...routes.signIn} />
       <AuthRoute {...routes.signUp} />
-      
+
       <ProtectedRoute {...routes.card} />
 
       <AuthBasedRedirect />

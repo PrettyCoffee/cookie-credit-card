@@ -3,10 +3,10 @@ import express from "express"
 
 import { CookieDatabase } from "./database"
 import Routes from "./routes"
+import { createAdmin } from "./utils/createAdmin"
 import { errorHandler } from "./utils/errors"
 import { protectedRoute } from "./utils/protectedRoute"
 import path from "path"
-import { createAdmin } from "./utils/createAdmin"
 
 const databasePath = path.resolve("../../data")
 

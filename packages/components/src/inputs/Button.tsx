@@ -18,7 +18,8 @@ const BaseButton = styled.button<InvertProp>`
 
     background-color: ${color.bg.button};
     color: ${color.fg.alt};
-    :hover:enabled, :active:enabled {
+    :hover:enabled,
+    :active:enabled {
       background-color: ${color.primary};
     }
     :active {
