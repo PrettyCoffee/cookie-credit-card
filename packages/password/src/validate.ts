@@ -13,4 +13,4 @@ const hasInvalidChars = (password: string) => {
 }
 
 export const validate = (password: string) =>
-  password.length >= 6 && !hasInvalidChars(password)
+  password.length >= 5 && !hasInvalidChars(password)

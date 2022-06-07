@@ -41,14 +41,14 @@ export class CookieDatabase {
     }
   }
 
-  public createUser(name: string, password: string) {
+  public createUser(name: string, password: string, role?: "user" | "admin") {
     const existing = this.getUserTable().findOne("name", name)
     if (existing) throw errors.NAME_ALREADY_EXISTS
     if (!Password.validate(password)) throw errors.PASSWORD_NOT_VALID
     const user = this.getUserTable().create({
       name,
       password: Password.encrypt(name, password, ENV.PWD_SECRET),
-      role: "user",
+      role: role || "user",
     })
     return user
   }
