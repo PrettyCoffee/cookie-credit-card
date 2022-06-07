@@ -63,6 +63,9 @@ const Axis = styled.span<{ active: boolean; didMount: boolean }>`
     ${!didMount &&
     css`
       transform: rotate(${active ? "90deg" : "-90deg"});
+      svg {
+        transform: rotate(${active ? "-90deg" : "90deg"});
+      }
     `}
     ${didMount && getAnimation(active)}
   `}
