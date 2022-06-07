@@ -1,7 +1,7 @@
 import { Minus, Plus } from "react-feather"
 import styled, { css } from "styled-components"
 
-import { IconButton } from "../../../components"
+import { IconButton } from "@ccc/components"
 import { useAuth } from "../../../providers/auth"
 
 const Wrapper = styled.div`
