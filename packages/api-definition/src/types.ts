@@ -14,4 +14,6 @@ export interface TokenPayload {
   id: string
   name: string
   role: "user" | "admin"
+  iat?: number
+  exp?: number
 }
