@@ -1,6 +1,7 @@
 import { Header } from "@ccc/components"
 import { Users, LogOut, Home, Book, Info, HelpCircle } from "react-feather"
 import { useLocation } from "wouter-preact"
+import { routes } from "../pages/routes"
 
 import { useAuth } from "../providers/auth"
 
@@ -36,7 +37,7 @@ export const CookieHeader = () => {
         {
           icon: Home,
           label: "Credit card",
-          onClick: () => setLocation("/card"),
+          onClick: () => setLocation(routes.card.path),
           condition: isAuthenticated,
         },
         {

@@ -7,6 +7,7 @@ import { AuthForm } from "../../common/AuthForm"
 import { AvatarIcon } from "../../common/AvatarIcon"
 import { CardHeadline } from "../../common/CardHeadline"
 import { useAuth } from "../../providers/auth"
+import { routes } from "../routes"
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ export const SignUp = () => {
           </Wrapper>
         </Card.Front>
         <Card.Back>
-          <WouterLink href="/sign-in">
+          <WouterLink href={routes.signIn.path}>
             <Link label="Use existing account?" inverted />
           </WouterLink>
         </Card.Back>

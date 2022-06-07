@@ -11,9 +11,7 @@ import {
 } from "wouter-preact"
 
 import { useAuth } from "../providers/auth"
-import { Card } from "./card/Card"
-import { SignIn } from "./sign-in/SignIn"
-import { SignUp } from "./sign-up/SignUp"
+import { routes } from "./routes"
 
 const currentLocation = () => window.location.hash.replace(/^#/, "") || "/"
 const navigate = (to: string) => {
@@ -35,14 +33,14 @@ const useHashLocation: BaseLocationHook = () => {
 
 const AuthBasedRedirect = () => {
   const { authenticated } = useAuth()
-  const to = authenticated ? "/card" : "/sign-in"
+  const to = authenticated ? routes.card.path : routes.signIn.path
   return <Redirect to={to} />
 }
 
 const AuthRoute = ({ component, ...props }: Omit<RouteProps, "children">) => {
   const { authenticated } = useAuth()
   const [, navigate] = useLocation()
-  if (authenticated) navigate("/card")
+  if (authenticated) navigate(routes.card.path)
   return <Route component={component} {...props} />
 }
 
@@ -51,17 +49,17 @@ const ProtectedRoute = ({
   ...props
 }: Omit<RouteProps, "children">) => {
   const { authenticated } = useAuth()
-  if (!authenticated) navigate("/sign-in")
+  if (!authenticated) navigate(routes.signIn.path)
   return <Route component={component} {...props} />
 }
-
+  
 export const Routes = ({ children }: PropsWithChildren) => (
   <Router hook={useHashLocation}>
     <Switch>
-      <ProtectedRoute path="/card" component={Card} />
-
-      <AuthRoute path="/sign-in" component={SignIn} />
-      <AuthRoute path="/sign-up" component={SignUp} />
+      <AuthRoute {...routes.signIn} />
+      <AuthRoute {...routes.signUp} />
+      
+      <ProtectedRoute {...routes.card} />
 
       <AuthBasedRedirect />
     </Switch>

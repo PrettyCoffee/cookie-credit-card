@@ -8,6 +8,7 @@ import { AuthForm } from "../../common/AuthForm"
 import { AvatarIcon } from "../../common/AvatarIcon"
 import { CardHeadline } from "../../common/CardHeadline"
 import { useAuth } from "../../providers/auth"
+import { routes } from "../routes"
 import Hello from "./hello.json"
 
 const randomHello = () => {
@@ -44,7 +45,7 @@ export const SignIn = () => {
           </Wrapper>
         </Card.Front>
         <Card.Back>
-          <WouterLink href="/sign-up">
+          <WouterLink href={routes.signUp.path}>
             <Link label="Create an account?" inverted />
           </WouterLink>
           <Spacing bottom="small" />
