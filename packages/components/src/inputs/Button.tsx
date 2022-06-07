@@ -18,8 +18,11 @@ const BaseButton = styled.button<InvertProp>`
 
     background-color: ${color.bg.button};
     color: ${color.fg.alt};
-    :hover:enabled {
+    :hover:enabled, :active:enabled {
       background-color: ${color.primary};
+    }
+    :active {
+      opacity: 0.8;
     }
     :focus-visible:enabled {
       outline: ${space.smallest} solid ${color.fg.button};

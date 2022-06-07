@@ -15,8 +15,11 @@ const Button = styled.button`
     border-radius: 50%;
     color: ${color.fg.button};
 
-    :hover {
+    :hover, :active {
       background-color: ${color.bg.button};
+    }
+    :active {
+      opacity: 0.8;
     }
     :focus-visible {
       outline: 1px solid ${color.fg.button};
