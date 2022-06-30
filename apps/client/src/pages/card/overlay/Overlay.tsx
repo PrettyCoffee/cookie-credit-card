@@ -12,7 +12,7 @@ export const Overlay = () => {
   return (
     <>
       <Cookie />
-      <Details cookies={cookies} />
+      <Details />
       <Name />
       <Actions onAdd={handleAdd} onEat={handleEat} />
     </>
