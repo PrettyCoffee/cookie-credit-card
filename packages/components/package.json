@@ -11,8 +11,8 @@
     "lint:fix": "npm run lint -- --fix"
   },
   "peerDependencies": {
-    "preact": "^10.7.2",
-    "react-feather": "^2.0.9",
+    "preact": "^10.8.2",
+    "react-feather": "^2.0.10",
     "styled-components": "^5.3.5"
   },
   "dependencies": {

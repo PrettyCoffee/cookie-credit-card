@@ -14,7 +14,7 @@
   "dependencies": { },
   "devDependencies": {
     "@ccc/eslint-config": "*",
-    "nodemon": "^2.0.16",
-    "ts-node": "^10.8.0"
+    "nodemon": "^2.0.18",
+    "ts-node": "^10.8.1"
   }
 }
