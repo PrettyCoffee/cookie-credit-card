@@ -1,77 +1,58 @@
-import { Database } from "@ccc/database"
 import ENV from "@ccc/env"
 import Password from "@ccc/password"
+import { PrismaClient, Role } from "@prisma/client"
 
 import { errors } from "../utils/errors"
-import { CookieDatabaseDefinition } from "./types"
 import { UserContext } from "./user-context"
-
-const defaultValue: CookieDatabaseDefinition = {
-  users: [],
-  cookies: [],
-}
 
 export class CookieDatabase {
   private static _instance: CookieDatabase
-  private readonly DB: Database<CookieDatabaseDefinition>
+  private readonly prisma = new PrismaClient()
 
-  constructor(directory: string) {
+  constructor() {
     if (CookieDatabase._instance) {
       throw new Error("CookieDatabase is a singleton")
     }
-    const options = {
-      directory,
-      salt: ENV.DB_SECRET,
-    }
-    this.DB = new Database(defaultValue, options)
   }
 
-  private getUserTable() {
-    return this.DB.getTable("users")
-  }
-
-  private getCookieTable() {
-    return this.DB.getTable("cookies")
-  }
-
-  public getData() {
+  public async getData() {
     return {
-      cookies: this.getCookieTable().getData(),
-      users: this.getUserTable().getData(),
+      cookies: await this.prisma.cookies.findMany(),
+      users: await this.prisma.user.findMany(),
     }
   }
 
-  public createUser(name: string, password: string, role?: "user" | "admin") {
-    const existing = this.getUserTable().findOne("name", name)
+  public async createUser(name: string, password: string, role?: Role) {
+    const existing = await this.prisma.user.findUnique({ where: { name } })
     if (existing) throw errors.NAME_ALREADY_EXISTS
     if (!Password.validate(password)) throw errors.PASSWORD_NOT_VALID
-    const user = this.getUserTable().create({
-      name,
-      password: Password.encrypt(name, password, ENV.PWD_SECRET),
-      role: role || "user",
+    const user = await this.prisma.user.create({
+      data: {
+        name,
+        password: Password.encrypt(name, password, ENV.PWD_SECRET),
+        role,
+      },
     })
     return user
   }
 
-  public deleteUser(name: string) {
-    const user = this.getUserTable().findOne("name", name)
+  public async deleteUser(name: string) {
+    const user = await this.prisma.user.findUnique({ where: { name } })
     if (!user) throw errors.USER_NOT_FOUND
-    this.getCookieTable().deleteAll("creditor", user.id)
-    this.getCookieTable().deleteAll("debtor", user.id)
-    this.getUserTable().delete(user.id)
+    this.prisma.user.delete({ where: { name } })
   }
 
-  public validateCredentials(name: string, password: string) {
-    const user = this.getUserTable().findOne("name", name)
+  public async validateCredentials(name: string, password: string) {
+    const user = await this.prisma.user.findUnique({ where: { name } })
     if (!user) return false
     const isValid =
       user.password === Password.encrypt(name, password, ENV.PWD_SECRET)
     return isValid ? user : false
   }
 
-  public getUserById(id: string) {
-    const user = this.getUserTable().findById(id)
+  public async getUserById(id: string) {
+    const user = await this.prisma.user.findUnique({ where: { id } })
     if (!user) return null
-    return new UserContext(this.DB, user)
+    return new UserContext(user)
   }
 }

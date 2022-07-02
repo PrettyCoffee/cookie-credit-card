@@ -28,11 +28,11 @@ const handler: TransferCookiesRoute["handler"] = (request, response, DB) => {
   const payload = getTokenFromHeaders(request.headers)
   if (!payload) throw errors.BAD_REQUEST
 
-  const user = DB.getUserById(payload.id)
-  user?.transferCookies(name, amount)
-
-  const jwt = Token.sign(payload)
-  response.header("Authorization", jwt).status(204).end()
+  DB.getUserById(payload.id).then(user => {
+    user?.transferCookies(name, amount)
+    const jwt = Token.sign(payload)
+    response.header("Authorization", jwt).status(204).end()
+  })
 }
 
 export const route: TransferCookiesRoute = {

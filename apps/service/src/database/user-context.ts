@@ -1,70 +1,99 @@
-import { Database } from "@ccc/database"
+import { PrismaClient, User } from "@prisma/client"
 
 import { errors } from "../utils/errors"
-import { CookieDatabaseDefinition, User } from "./types"
 
 export class UserContext {
-  private readonly DB: Database<CookieDatabaseDefinition>
+  private readonly prisma = new PrismaClient()
   public user: User
 
-  constructor(db: Database<CookieDatabaseDefinition>, user: User) {
-    this.DB = db
+  constructor(user: User) {
     this.user = user
   }
 
-  public getCookies() {
-    const debts = this.getDebts(this.user.id)
-    const credits = this.getCredit(this.user.id)
+  public async getCookies() {
+    const debts = (await this.getDebts()).map(({ amount, creditor }) => ({
+      creditor: creditor.name,
+      amount,
+    }))
+    const credits = (await this.getCredits()).map(({ amount, debtor }) => ({
+      debtor: debtor.name,
+      amount,
+    }))
     return {
       debts,
       credits,
     }
   }
 
-  public transferCookies(destName: string, amount: number) {
+  public async transferCookies(destName: string, amount: number) {
     if (destName === this.user.name) throw errors.BAD_REQUEST
-    const destUser = this.getUserTable().findOne("name", destName)
+    const destUser = await this.prisma.user.findUnique({
+      where: { name: destName },
+    })
     if (!destUser) throw errors.USER_NOT_FOUND
-    const existingDebts = this.getCookieTable()
-      .findAll("debtor", this.user.id)
-      .find(({ creditor }) => creditor === destUser?.id)
-    if (existingDebts) {
-      const newAmount = (existingDebts.amount += amount)
-      if (newAmount <= 0) this.getCookieTable().delete(existingDebts.id)
-      this.getCookieTable().patch(existingDebts.id, "amount", newAmount)
-    } else {
-      if (amount <= 0) return
-      this.getCookieTable().create({
-        debtor: this.user.id,
-        creditor: destUser.id,
-        amount,
+
+    const debtQuery = {
+      where: {
+        debtorId_creditorId: {
+          debtorId: this.user.id,
+          creditorId: destUser.id,
+        },
+      },
+    }
+
+    const creditQuery = {
+      where: {
+        debtorId_creditorId: {
+          creditorId: this.user.id,
+          debtorId: destUser.id,
+        },
+      },
+    }
+
+    const existingDebts = await this.prisma.cookies.findUnique(debtQuery)
+    const existingCredits = await this.prisma.cookies.findUnique(creditQuery)
+
+    const currentAmount =
+      (existingCredits?.amount || 0) - (existingDebts?.amount || 0)
+    const newAmount = currentAmount + amount
+
+    if (newAmount < 1 && existingCredits)
+      this.prisma.cookies.delete(creditQuery)
+    else if (newAmount > -1 && existingDebts)
+      this.prisma.cookies.delete(debtQuery)
+
+    if (newAmount < 0) {
+      this.prisma.cookies.upsert({
+        ...debtQuery,
+        update: { amount: newAmount * -1 },
+        create: {
+          ...debtQuery.where.debtorId_creditorId,
+          amount: newAmount * -1,
+        },
+      })
+    } else if (newAmount > 0) {
+      this.prisma.cookies.upsert({
+        ...creditQuery,
+        update: { amount: newAmount },
+        create: {
+          ...creditQuery.where.debtorId_creditorId,
+          amount: newAmount,
+        },
       })
     }
   }
 
-  private getUserTable() {
-    return this.DB.getTable("users")
-  }
-
-  private getCookieTable() {
-    return this.DB.getTable("cookies")
-  }
-
-  private getDebts(userId: string) {
-    const debts = this.getCookieTable().findAll("debtor", userId)
-    return debts.map(({ amount, creditor }) => {
-      const creditorUser = this.getUserTable().findById(creditor)
-      if (!creditorUser) throw errors.USER_NOT_FOUND
-      return { creditor: creditorUser.name, amount }
+  private getDebts(userId = this.user.id) {
+    return this.prisma.cookies.findMany({
+      where: { debtorId: userId },
+      include: { creditor: true, debtor: true },
     })
   }
 
-  private getCredit(userId: string) {
-    const credits = this.getCookieTable().findAll("creditor", userId)
-    return credits.map(({ amount, debtor }) => {
-      const debtorUser = this.getUserTable().findById(debtor)
-      if (!debtorUser) throw errors.USER_NOT_FOUND
-      return { debtor: debtorUser.name, amount }
+  private getCredits(userId = this.user.id) {
+    return this.prisma.cookies.findMany({
+      where: { creditorId: userId },
+      include: { creditor: true, debtor: true },
     })
   }
 }

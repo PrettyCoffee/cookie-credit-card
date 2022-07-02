@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@ccc/api-definition": "*",
-    "@ccc/database": "*",
     "@ccc/env": "*",
     "@ccc/password": "*",
     "cors": "^2.8.5",

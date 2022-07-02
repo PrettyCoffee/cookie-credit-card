@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  password String
+  role     Role      @default(user)
+  debts    Cookies[] @relation("debts")
+  credits  Cookies[] @relation("credits")
+}
+
+model Cookies {
+  debtorId   String
+  debtor     User   @relation(name: "debts", fields: [debtorId], references: [id])
+  creditorId String
+  creditor   User   @relation(name: "credits", fields: [creditorId], references: [id])
+  amount     Int    @default(0)
+
+  @@id([debtorId, creditorId])
+  @@unique([debtorId, creditorId])
+}
+
+enum Role {
+  user
+  admin
+}

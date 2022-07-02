@@ -1,0 +1,30 @@
+version: "3.8"
+
+# $ docker compose up -d
+
+services:
+  #  client:
+  #    build: ./apps/client
+  #    ports:
+  #      - "8080:80"
+  #
+  #  service:
+  #    build: ./apps/service
+  #    ports:
+  #      - "8000:8000"
+
+  db:
+    container_name: database
+    image: mysql:8
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    volumes:
+      - ./.data:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+networks:
+  mysql-compose-network:
+    driver: bridge

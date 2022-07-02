@@ -14,11 +14,12 @@ const handler: GetCookiesRoute["handler"] = (request, response, DB) => {
   const payload = getTokenFromHeaders(request.headers)
   if (!payload) throw errors.BAD_REQUEST
 
-  const user = DB.getUserById(payload.id)
-  const cookies = user?.getCookies()
-  if (!cookies) throw errors.BAD_REQUEST
-
-  response.status(200).json(cookies)
+  DB.getUserById(payload.id)
+    .then(user => user?.getCookies())
+    .then(cookies => {
+      if (!cookies) throw errors.BAD_REQUEST
+      response.status(200).json(cookies)
+    })
 }
 
 export const route: GetCookiesRoute = {

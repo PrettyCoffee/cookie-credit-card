@@ -8,7 +8,8 @@
   "scripts": {
     "update": "npm run update --workspaces",
     "lint": "npm run lint --workspaces",
-    "lint:fix": "npm run lint:fix --workspaces"
+    "lint:fix": "npm run lint:fix --workspaces",
+    "postinstall": "npm run postinstall --workspaces --if-present"
   },
   "workspaces": [
     "apps/*",

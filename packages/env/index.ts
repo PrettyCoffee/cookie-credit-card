@@ -3,17 +3,22 @@ import dotenv from "dotenv"
 dotenv.config({ path: "../../.env" })
 
 type EnvVar =
-  | "DB_SECRET"
-  | "PWD_SECRET"
-  | "JWT_SECRET"
   | "ADMIN_NAME"
   | "ADMIN_PWD"
+  | "PWD_SECRET"
+  | "JWT_SECRET"
+  | "MYSQL_ROOT_PASSWORD"
+  | "MYSQL_DATABASE"
+  | "DATABASE_URL"
+
 const Variables: EnvVar[] = [
-  "DB_SECRET",
-  "PWD_SECRET",
-  "JWT_SECRET",
   "ADMIN_NAME",
   "ADMIN_PWD",
+  "PWD_SECRET",
+  "JWT_SECRET",
+  "MYSQL_ROOT_PASSWORD",
+  "MYSQL_DATABASE",
+  "DATABASE_URL",
 ]
 
 const ENV = {} as Record<EnvVar, string>

@@ -10,10 +10,10 @@ const signToken = (payload: TokenPayload) => {
     ...payload,
   }
   delete rawPayload.exp
-  return (
-    "Bearer " +
-    sign(rawPayload, ENV.JWT_SECRET, { expiresIn, algorithm: algorithms[0] })
-  )
+  return `Bearer ${sign(rawPayload, ENV.JWT_SECRET, {
+    expiresIn,
+    algorithm: algorithms[0],
+  })}`
 }
 const verifyToken = (token?: string) => {
   if (!token) return null

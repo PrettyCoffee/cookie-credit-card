@@ -6,11 +6,8 @@ import Routes from "./routes"
 import { createAdmin } from "./utils/createAdmin"
 import { errorHandler } from "./utils/errors"
 import { protectedRoute } from "./utils/protectedRoute"
-import path from "path"
 
-const databasePath = path.resolve("../../data")
-
-const DB = new CookieDatabase(databasePath)
+const DB = new CookieDatabase()
 createAdmin(DB)
 
 const app = express()
