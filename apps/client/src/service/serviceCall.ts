@@ -38,9 +38,21 @@ export const serviceCall = <ReqBody extends unknown, ResBody extends unknown>(
     method,
     headers: createHeaders(protect),
     body: body ? JSON.stringify(body) : undefined,
-  }).then(async response => {
-    const result = await response.json()
-    if (response.ok) return { type: "success", body: result }
-    if (isErrorResponse(result)) return { type: "error", body: result }
-    throw result
   })
+    .then(async response => {
+      let result: any
+      try {
+        result = await response.json()
+      } catch {
+        result = null
+      }
+      return {
+        result,
+        ok: response.ok,
+      }
+    })
+    .then(({ result, ok }) => {
+      if (ok) return { type: "success", body: result }
+      if (isErrorResponse(result)) return { type: "error", body: result }
+      throw result
+    })
