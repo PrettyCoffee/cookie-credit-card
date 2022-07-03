@@ -42,6 +42,16 @@ export class UserContext {
     })
     if (!destUser) throw errors.USER_NOT_FOUND
 
+    this.prisma.transaction
+      .create({
+        data: {
+          amount,
+          debtorId: this.user.id,
+          creditorId: destUser.id,
+        },
+      })
+      .finally()
+
     return this.getNewBalance(this.user, destUser, amount).then(newBalance => {
       if (newBalance < 1)
         return this.executeTransfer(this.user, destUser, newBalance * -1)
