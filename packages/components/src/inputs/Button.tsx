@@ -39,10 +39,10 @@ const BaseButton = styled.button<InvertProp>`
       background-color: ${color.fg.button};
       color: ${color.bg.alt};
       box-shadow: ${shadow.low(color.fg.button)};
-      :hover {
+      :hover:enabled {
         background-color: ${color.fg.alt};
       }
-      :focus-visible {
+      :focus-visible:enabled {
         outline-color: ${color.bg.button};
       }
     `}
