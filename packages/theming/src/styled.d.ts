@@ -43,6 +43,7 @@ export interface Theme {
   space: Spacing
   color: Colors
   shadow: Shadows
+  inverted: boolean
 }
 
 export declare module "styled-components" {
