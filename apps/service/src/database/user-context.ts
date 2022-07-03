@@ -2,6 +2,15 @@ import { PrismaClient, User } from "@prisma/client"
 
 import { errors } from "../utils/errors"
 
+const getCookieQuery = (debtorId: string, creditorId: string) => ({
+  where: {
+    debtorId_creditorId: {
+      debtorId,
+      creditorId,
+    },
+  },
+})
+
 export class UserContext {
   private prisma: PrismaClient
   public user: User
@@ -27,61 +36,55 @@ export class UserContext {
   }
 
   public async transferCookies(destName: string, amount: number) {
-    if (destName === this.user.name) throw errors.BAD_REQUEST
+    if (destName === this.user.name || amount < 1) throw errors.BAD_REQUEST
     const destUser = await this.prisma.user.findUnique({
       where: { name: destName },
     })
     if (!destUser) throw errors.USER_NOT_FOUND
 
-    const debtQuery = {
-      where: {
-        debtorId_creditorId: {
-          debtorId: this.user.id,
-          creditorId: destUser.id,
-        },
-      },
-    }
+    return this.getNewBalance(this.user, destUser, amount).then(newBalance => {
+      if (newBalance < 1)
+        return this.executeTransfer(this.user, destUser, newBalance * -1)
+      else if (newBalance >= 1)
+        return this.executeTransfer(destUser, this.user, newBalance)
+    })
+  }
 
-    const creditQuery = {
-      where: {
-        debtorId_creditorId: {
-          creditorId: this.user.id,
-          debtorId: destUser.id,
-        },
-      },
-    }
-
-    const existingDebts = await this.prisma.cookies.findUnique(debtQuery)
-    const existingCredits = await this.prisma.cookies.findUnique(creditQuery)
+  private async getNewBalance(debtor: User, creditor: User, amount: number) {
+    const existingDebts = await this.prisma.cookies.findUnique(
+      getCookieQuery(debtor.id, creditor.id)
+    )
+    const existingCredits = await this.prisma.cookies.findUnique(
+      getCookieQuery(creditor.id, debtor.id)
+    )
 
     const currentAmount =
       (existingCredits?.amount || 0) - (existingDebts?.amount || 0)
-    const newAmount = currentAmount + amount
+    const newBalance = currentAmount - amount
 
-    if (newAmount < 1 && existingCredits)
-      this.prisma.cookies.delete(creditQuery).finally()
-    else if (newAmount > -1 && existingDebts)
-      this.prisma.cookies.delete(debtQuery).finally()
+    if (newBalance < 1 && existingCredits)
+      this.prisma.cookies
+        .delete(getCookieQuery(creditor.id, debtor.id))
+        .finally()
 
-    if (newAmount < 0) {
-      return this.prisma.cookies.upsert({
-        ...debtQuery,
-        update: { amount: newAmount * -1 },
-        create: {
-          ...debtQuery.where.debtorId_creditorId,
-          amount: newAmount * -1,
+    return newBalance
+  }
+
+  private executeTransfer(debtor: User, creditor: User, amount: number) {
+    return this.prisma.cookies.upsert({
+      where: {
+        debtorId_creditorId: {
+          debtorId: debtor.id,
+          creditorId: creditor.id,
         },
-      })
-    } else if (newAmount > 0) {
-      return this.prisma.cookies.upsert({
-        ...creditQuery,
-        update: { amount: newAmount },
-        create: {
-          ...creditQuery.where.debtorId_creditorId,
-          amount: newAmount,
-        },
-      })
-    }
+      },
+      update: { amount },
+      create: {
+        debtorId: debtor.id,
+        creditorId: creditor.id,
+        amount: amount,
+      },
+    })
   }
 
   private getDebts(userId = this.user.id) {
