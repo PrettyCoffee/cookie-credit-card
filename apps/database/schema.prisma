@@ -8,12 +8,14 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  name     String    @unique
-  password String
-  role     Role      @default(user)
-  debts    Cookies[] @relation("debts")
-  credits  Cookies[] @relation("credits")
+  id                 String        @id @default(uuid())
+  name               String        @unique
+  password           String
+  role               Role          @default(user)
+  debts              Cookies[]     @relation("debts")
+  credits            Cookies[]     @relation("credits")
+  debtTransactions   Transaction[] @relation("debt_transactions")
+  creditTransactions Transaction[] @relation("credit_transactions")
 }
 
 model Cookies {
@@ -25,6 +27,16 @@ model Cookies {
 
   @@id([debtorId, creditorId])
   @@unique([debtorId, creditorId])
+}
+
+model Transaction {
+  id         String   @id @default(uuid())
+  debtorId   String
+  debtor     User     @relation(name: "debt_transactions", fields: [debtorId], references: [id])
+  creditorId String
+  creditor   User     @relation(name: "credit_transactions", fields: [creditorId], references: [id])
+  amount     Int      @default(0)
+  timestamp  DateTime @default(now())
 }
 
 enum Role {
