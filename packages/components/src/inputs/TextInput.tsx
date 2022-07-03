@@ -42,7 +42,7 @@ const Input = styled.input<InputProps>`
 
     ${alert &&
     css`
-      border-color: ${color.alert[alert]};
+      border-color: ${color.alert[alert]}!important;
     `}
   `}
 `
