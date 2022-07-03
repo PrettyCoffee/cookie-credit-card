@@ -2,6 +2,7 @@ import { Card as CardComp } from "@ccc/components"
 import styled from "styled-components"
 
 import { Overlay } from "./overlay"
+import { Underlay } from "./underlay/Underlay"
 
 const Wrapper = styled.div`
   width: 500px;
@@ -21,6 +22,8 @@ export const Card = () => (
         <Overlay />
       </Wrapper>
     </CardComp.Front>
-    <CardComp.Back>test</CardComp.Back>
+    <CardComp.Back>
+      <Underlay />
+    </CardComp.Back>
   </CardComp>
 )
