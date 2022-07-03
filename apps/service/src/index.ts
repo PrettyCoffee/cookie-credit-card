@@ -17,9 +17,9 @@ app.use(cors())
 app.use(express.json())
 
 Routes.forEach(({ method, path, protect, handler }) => {
-  app[method](path, (req, res, next) => {
+  app[method](path, async (req, res) => {
     try {
-      if (protect) protectedRoute(req, res, next)
+      if (protect) await protectedRoute(req, res, DB)
       handler(req, DB).then(({ status, body }) => {
         if (body) res.status(status).json(body)
         else res.status(status).end()
