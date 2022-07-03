@@ -22,24 +22,26 @@ const animateOut = keyframes`
 `
 
 const Container = styled.button`
-  position: relative;
-  width: 2rem;
-  height: 2rem;
+  ${({ theme: { color } }) => css`
+    position: relative;
+    width: 2rem;
+    height: 2rem;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  overflow: hidden;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: ${color.bg.base};
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
 
-  :focus-visible {
-    outline: 1px solid ${({ theme }) => theme.color.fg.button};
-  }
+    :focus-visible {
+      outline: 1px solid ${color.fg.button};
+    }
+  `}
 `
 
 const getAnimation = (active: boolean) => {
