@@ -2,10 +2,11 @@ import { FunctionComponent } from "preact"
 import { useLocation as useWouterLocation } from "wouter-preact"
 
 import { Card } from "./card/Card"
+import { Overview } from "./overview"
 import { SignIn } from "./sign-in/SignIn"
 import { SignUp } from "./sign-up/SignUp"
 
-type RouteName = "signIn" | "signUp" | "card"
+type RouteName = "signIn" | "signUp" | "card" | "overview"
 
 export interface CookieRoute {
   path: string
@@ -24,6 +25,10 @@ export const routes: Record<RouteName, CookieRoute> = {
   card: {
     path: "/card",
     component: Card,
+  },
+  overview: {
+    path: "/overview",
+    component: Overview,
   },
 }
 

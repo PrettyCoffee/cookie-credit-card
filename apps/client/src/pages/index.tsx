@@ -60,6 +60,7 @@ export const Routes = ({ children }: PropsWithChildren) => (
       <AuthRoute {...routes.signUp} />
 
       <ProtectedRoute {...routes.card} />
+      <ProtectedRoute {...routes.overview} />
 
       <AuthBasedRedirect />
     </Switch>

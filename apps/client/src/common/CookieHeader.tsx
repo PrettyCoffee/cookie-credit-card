@@ -24,14 +24,14 @@ export const CookieHeader = () => {
         },
         {
           icon: Users,
-          label: "Users overview",
-          onClick: () => setLocation("/overview"),
+          label: "Admin overview",
+          onClick: () => setLocation("/admin"),
           condition: isAdmin,
         },
         {
           icon: Book,
-          label: "Credit book",
-          onClick: () => setLocation("/credit-book"),
+          label: "Cookie overview",
+          onClick: () => setLocation("/overview"),
           condition: isAuthenticated,
         },
         {
