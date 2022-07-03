@@ -6,7 +6,6 @@ import {
 
 import { errors } from "../utils/errors"
 import { getTokenFromHeaders } from "../utils/getTokenFromHeaders"
-import { Token } from "../utils/token"
 import {
   RequestBodyValidation,
   validateRequestBody,
@@ -23,15 +22,16 @@ const Verifier: RequestBodyValidation<TransferCookiesRequest> = {
   amount: { type: "number", required: true },
 }
 
-const handler: TransferCookiesRoute["handler"] = (request, response, DB) => {
+const handler: TransferCookiesRoute["handler"] = (request, DB) => {
   const { name, amount } = validateRequestBody(request.body, Verifier)
   const payload = getTokenFromHeaders(request.headers)
   if (!payload) throw errors.BAD_REQUEST
 
-  DB.getUserById(payload.id).then(user => {
+  return DB.getUserById(payload.id).then(user => {
     user?.transferCookies(name, amount)
-    const jwt = Token.sign(payload)
-    response.header("Authorization", jwt).status(204).end()
+    return {
+      status: 204,
+    }
   })
 }
 

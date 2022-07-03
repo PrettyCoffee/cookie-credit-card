@@ -17,13 +17,15 @@ app.use(cors())
 app.use(express.json())
 
 Routes.forEach(({ method, path, protect, handler }) => {
-  if (protect) {
-    app[method](path, protectedRoute, (req, res) => handler(req, res, DB))
-  } else {
-    app[method](path, (req, res) => handler(req, res, DB))
-  }
+  app[method](path, (req, res, next) => {
+    if (protect) protectedRoute(req, res, next)
+    handler(req, DB)
+      .then(({ status, body }) => {
+        if (body) res.status(status).json(body)
+        else res.status(status).end()
+      })
+      .catch(e => errorHandler(e, res))
+  })
 })
-
-app.use(errorHandler)
 
 app.listen(8000, () => console.log("server is running at 8000"))

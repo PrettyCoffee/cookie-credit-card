@@ -14,11 +14,14 @@ const Verifier: RequestBodyValidation<AuthRequest> = {
   password: { type: "string", required: true },
 }
 
-const handler: SignUpRoute["handler"] = (request, response, DB) => {
+const handler: SignUpRoute["handler"] = (request, DB) => {
   const { name, password } = validateRequestBody(request.body, Verifier)
-  DB.createUser(name, password).then(({ id, role }) => {
+  return DB.createUser(name, password).then(({ id, role }) => {
     const token = Token.sign({ id, name, role })
-    response.header("Authorization", token).status(201).json({ token })
+    return {
+      status: 201,
+      body: { token },
+    }
   })
 }
 

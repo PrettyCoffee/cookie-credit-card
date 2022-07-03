@@ -1,5 +1,5 @@
 import { Route } from "@ccc/api-definition"
-import { Request, Response } from "express"
+import { Request } from "express"
 
 import { CookieDatabase } from "../database"
 
@@ -11,7 +11,9 @@ export interface ExpressRoute<ReqBody extends unknown, ResBody extends unknown>
   extends Route {
   handler: (
     request: TypedRequest<ReqBody>,
-    response: Response<ResBody>,
     DB: CookieDatabase
-  ) => void
+  ) => Promise<{
+    status: number
+    body?: ResBody
+  }>
 }

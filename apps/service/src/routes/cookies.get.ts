@@ -10,15 +10,18 @@ import { ExpressRoute } from "./types"
 
 type GetCookiesRoute = ExpressRoute<GetCookiesRequest, GetCookiesResponse>
 
-const handler: GetCookiesRoute["handler"] = (request, response, DB) => {
+const handler: GetCookiesRoute["handler"] = (request, DB) => {
   const payload = getTokenFromHeaders(request.headers)
   if (!payload) throw errors.BAD_REQUEST
 
-  DB.getUserById(payload.id)
+  return DB.getUserById(payload.id)
     .then(user => user?.getCookies())
     .then(cookies => {
       if (!cookies) throw errors.BAD_REQUEST
-      response.status(200).json(cookies)
+      return {
+        status: 200,
+        body: cookies,
+      }
     })
 }
 

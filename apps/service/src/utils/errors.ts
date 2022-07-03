@@ -1,5 +1,5 @@
 import { ErrorResponse } from "@ccc/api-definition"
-import { NextFunction, Request, Response } from "express"
+import { Response } from "express"
 
 export type ErrorId =
   | "BAD_REQUEST"
@@ -50,13 +50,7 @@ export const errors: Errors = {
   },
 }
 
-export const errorHandler = (
-  error: Error<ErrorId>,
-  _req: Request,
-  res: Response,
-  // eslint-disable-next-line no-unused-vars
-  _next: NextFunction
-) => {
+export const errorHandler = (error: Error<ErrorId>, res: Response) => {
   console.error(error)
   if (errors[error.id]) res.status(error.code).send(error)
   else res.status(500).send(errors.UNEXPECTED)

@@ -15,12 +15,15 @@ const Verifier: RequestBodyValidation<AuthRequest> = {
   password: { type: "string", required: true },
 }
 
-const handler: SignInRoute["handler"] = (request, response, DB) => {
+const handler: SignInRoute["handler"] = (request, DB) => {
   const { name, password } = validateRequestBody(request.body, Verifier)
-  DB.validateCredentials(name, password).then(user => {
+  return DB.validateCredentials(name, password).then(user => {
     if (!user) throw errors.BAD_REQUEST
     const token = Token.sign({ id: user.id, name: user.name, role: user.role })
-    response.header("Authorization", token).status(200).json({ token })
+    return {
+      status: 200,
+      body: { token },
+    }
   })
 }
 
