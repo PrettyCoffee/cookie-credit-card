@@ -3,7 +3,7 @@ import { RequestHandler } from "express"
 import { errors } from "./errors"
 import { Token } from "./token"
 
-export const protectedRoute: RequestHandler = (req, res, next) => {
+export const protectedRoute: RequestHandler = (req, res) => {
   const token = req.headers.authorization?.split(" ")[1]
   try {
     const payload = Token.verify(token)
@@ -15,6 +15,4 @@ export const protectedRoute: RequestHandler = (req, res, next) => {
   } catch {
     throw errors.UNAUTHORIZED
   }
-
-  next()
 }

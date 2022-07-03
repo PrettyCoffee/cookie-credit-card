@@ -53,6 +53,6 @@ export class CookieDatabase {
   public async getUserById(id: string) {
     const user = await this.prisma.user.findUnique({ where: { id } })
     if (!user) return null
-    return new UserContext(user)
+    return new UserContext(user, this.prisma)
   }
 }

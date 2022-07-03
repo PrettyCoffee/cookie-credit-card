@@ -18,13 +18,15 @@ app.use(express.json())
 
 Routes.forEach(({ method, path, protect, handler }) => {
   app[method](path, (req, res, next) => {
-    if (protect) protectedRoute(req, res, next)
-    handler(req, DB)
-      .then(({ status, body }) => {
+    try {
+      if (protect) protectedRoute(req, res, next)
+      handler(req, DB).then(({ status, body }) => {
         if (body) res.status(status).json(body)
         else res.status(status).end()
       })
-      .catch(e => errorHandler(e, res))
+    } catch (e: any) {
+      errorHandler(e, res)
+    }
   })
 })
 

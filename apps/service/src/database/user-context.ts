@@ -3,11 +3,12 @@ import { PrismaClient, User } from "@prisma/client"
 import { errors } from "../utils/errors"
 
 export class UserContext {
-  private readonly prisma = new PrismaClient()
+  private prisma: PrismaClient
   public user: User
 
-  constructor(user: User) {
+  constructor(user: User, prisma: PrismaClient) {
     this.user = user
+    this.prisma = prisma
   }
 
   public async getCookies() {
@@ -58,12 +59,12 @@ export class UserContext {
     const newAmount = currentAmount + amount
 
     if (newAmount < 1 && existingCredits)
-      this.prisma.cookies.delete(creditQuery)
+      this.prisma.cookies.delete(creditQuery).finally()
     else if (newAmount > -1 && existingDebts)
-      this.prisma.cookies.delete(debtQuery)
+      this.prisma.cookies.delete(debtQuery).finally()
 
     if (newAmount < 0) {
-      this.prisma.cookies.upsert({
+      return this.prisma.cookies.upsert({
         ...debtQuery,
         update: { amount: newAmount * -1 },
         create: {
@@ -72,7 +73,7 @@ export class UserContext {
         },
       })
     } else if (newAmount > 0) {
-      this.prisma.cookies.upsert({
+      return this.prisma.cookies.upsert({
         ...creditQuery,
         update: { amount: newAmount },
         create: {

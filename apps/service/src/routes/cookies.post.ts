@@ -27,12 +27,12 @@ const handler: TransferCookiesRoute["handler"] = (request, DB) => {
   const payload = getTokenFromHeaders(request.headers)
   if (!payload) throw errors.BAD_REQUEST
 
-  return DB.getUserById(payload.id).then(user => {
-    user?.transferCookies(name, amount)
-    return {
+  return DB.getUserById(payload.id)
+    .then(user => user?.transferCookies(name, amount))
+    .then(cookies => ({
       status: 204,
-    }
-  })
+      cookies,
+    }))
 }
 
 export const route: TransferCookiesRoute = {
