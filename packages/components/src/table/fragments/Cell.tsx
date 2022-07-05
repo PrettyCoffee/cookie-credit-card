@@ -8,8 +8,7 @@ const getWidth = (width?: number | string) => {
   return ""
 }
 
-type CellProps = Pick<Column<any>, "alignment" | "width">
-
+export type CellProps = Pick<Column<{}>, "alignment" | "width">
 export const Cell = styled.td<CellProps>`
   ${({ theme: { color, space }, alignment = "left", width }) => css`
     height: 2rem;

@@ -1,8 +1,8 @@
 import { useMemo } from "preact/hooks"
 
-import { filterData } from "../filterData"
 import { TableProps } from "../Table"
-import { Cell } from "./Cell"
+import { filterData } from "../utils/filterData"
+import { BodyCell } from "./BodyCell"
 import { Row } from "./Row"
 
 export const Body = <Data extends object>({
@@ -21,9 +21,7 @@ export const Body = <Data extends object>({
       {filteredData.map((row, index) => (
         <Row key={index}>
           {columns.map(({ key, ...styling }) => (
-            <Cell key={String(key)} {...styling}>
-              {row[key]}
-            </Cell>
+            <BodyCell key={String(key)} value={row[key]} {...styling} />
           ))}
         </Row>
       ))}
