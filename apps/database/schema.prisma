@@ -19,11 +19,12 @@ model User {
 }
 
 model Cookies {
-  debtorId   String
-  debtor     User   @relation(name: "debts", fields: [debtorId], references: [id])
-  creditorId String
-  creditor   User   @relation(name: "credits", fields: [creditorId], references: [id])
-  amount     Int    @default(0)
+  debtorId    String
+  debtor      User     @relation(name: "debts", fields: [debtorId], references: [id])
+  creditorId  String
+  creditor    User     @relation(name: "credits", fields: [creditorId], references: [id])
+  amount      Int      @default(0)
+  lastUpdated DateTime @default(now())
 
   @@id([debtorId, creditorId])
   @@unique([debtorId, creditorId])
