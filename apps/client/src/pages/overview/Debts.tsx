@@ -1,16 +1,13 @@
+import { Debt } from "@ccc/api-definition"
 import { Table, Text, Column, Spacing } from "@ccc/components"
 import styled from "styled-components"
 
 import { useCookies } from "../../providers/cookies"
 
-type DebtData = {
-  creditor: string
-  amount: number
-}
-
-const DebtColumns: Column<DebtData>[] = [
+const DebtColumns: Column<Debt>[] = [
   { key: "creditor", header: "Creditor", width: "10rem" },
   { key: "amount", header: "Amount", alignment: "right" },
+  { key: "lastUpdated", header: "Last updated", alignment: "center" },
 ]
 
 const Container = styled.div`

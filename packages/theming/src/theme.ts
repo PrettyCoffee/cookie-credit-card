@@ -62,7 +62,7 @@ export const getTheme = (inverted: boolean): DefaultTheme => ({
   space,
   shadow,
   color: inverted ? invertColors(peach) : peach,
-  inverted
+  inverted,
 })
 
 /*
