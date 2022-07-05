@@ -2,14 +2,16 @@ import { Route } from "./types"
 
 export interface GetCookiesRequest {}
 
-interface Debt {
+export interface Debt {
   creditor: string
   amount: number
+  lastUpdated: Date
 }
 
-interface Credit {
+export interface Credit {
   debtor: string
   amount: number
+  lastUpdated: Date
 }
 
 export interface GetCookiesResponse {

@@ -21,14 +21,20 @@ export class UserContext {
   }
 
   public async getCookies() {
-    const debts = (await this.getDebts()).map(({ amount, creditor }) => ({
-      creditor: creditor.name,
-      amount,
-    }))
-    const credits = (await this.getCredits()).map(({ amount, debtor }) => ({
-      debtor: debtor.name,
-      amount,
-    }))
+    const debts = (await this.getDebts()).map(
+      ({ amount, creditor, lastUpdated }) => ({
+        creditor: creditor.name,
+        amount,
+        lastUpdated: new Date(lastUpdated),
+      })
+    )
+    const credits = (await this.getCredits()).map(
+      ({ amount, debtor, lastUpdated }) => ({
+        debtor: debtor.name,
+        amount,
+        lastUpdated: new Date(lastUpdated),
+      })
+    )
     return {
       debts,
       credits,
